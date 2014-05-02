@@ -18,7 +18,7 @@ module So
                          request_specs: false,
                          controller_spec: true
         g.fixture_replacment :factory_girl, dir: 'spec/factories'
-        g.template_engine    :haml
+        g.template_engine    :slim
     end
   end
 end
