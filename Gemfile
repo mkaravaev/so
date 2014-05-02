@@ -5,6 +5,14 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
+
+gem 'thin'
+
+gem 'device'
+
+gem 'simple_form'
+
+gem 'foundation-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
