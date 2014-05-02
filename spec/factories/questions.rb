@@ -5,4 +5,8 @@ FactoryGirl.define do
     title 'my_title'
     body 'my_example_body'
   end
+  factory :invalid_question, class: "Question" do
+    title ''
+    body ''
+  end
 end
