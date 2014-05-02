@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :question do
+    title 'my_title'
+    body 'my_example_body'
   end
 end
