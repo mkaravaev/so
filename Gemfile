@@ -8,7 +8,7 @@ gem 'pg'
 
 gem 'thin'
 
-gem 'device'
+gem 'devise'
 
 gem 'simple_form'
 
