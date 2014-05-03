@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe AnswersController do
-  let (:answer) { create(:answer) }
+  # let (:answer) { create(:answer) }
 
   describe "GET #index" do
     let(:answers) { create_list(:answer, 2) }
-    before { get :index }
+    before { get :index, question_id: "2" }
 
-    it "puts all answers to @answers" do
+    it "puts answers to @answers" do
       expect(assigns(:answers)).to match_array(answers)
     end
 
@@ -17,7 +17,7 @@ describe AnswersController do
   end
 
   describe "GET #show" do
-    before { get :show, id: answer }
+    before { get :show, question_id: "2" }
 
     it "puts answer in @answer" do
       
