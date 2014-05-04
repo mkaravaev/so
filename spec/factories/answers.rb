@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :answer do
     body 'this is the answer'
-    question_id "2"
+    association :question
+    association :user
   end
 end
