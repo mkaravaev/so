@@ -3,4 +3,5 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 7..180 }
   validates :body,  length: { in: 10..2048 }
   has_many :answers
+  belongs_to :user
 end

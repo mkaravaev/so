@@ -1,0 +1,12 @@
+.question-container
+  - @questions.each do |question|
+    .question-title 
+      h3= link_to question.title, question_path(question)
+    .question-body 
+      p #{question.body}
+    .question-stats
+      .user-info
+        .user-action-time
+          p asked #{question.created_at}
+        .user-info
+          p= link_to question.user.name, user_path(question.user_id)
