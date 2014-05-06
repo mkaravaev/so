@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe QuestionsController do
   let(:question) { create(:question) }
+  let(:user) { create(:user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
-    
     before {get :index}
 
     it 'makes array with all questions' do
@@ -30,55 +30,91 @@ describe QuestionsController do
   end
 
   describe 'GET #new' do
-    before { get :new }
-    
-    it "assigns new Question to a @question" do
-      expect(assigns(:question)).to be_a_new(Question)  
+
+    context "when user signed in" do
+      before { sign_in user }
+      before { get :new }
+      it "assigns new Question to a @question" do
+        expect(assigns(:question)).to be_a_new(Question)  
+      end
+
+      it "renders new view" do
+        expect(response).to render_template :new
+      end
     end
 
-    it "renders new view" do
-      expect(response).to render_template :new
+    context "when user not signed in" do
+      before { get :new }
+      it "redirect to user sign in page" do
+        expect(response).to redirect_to new_user_session_path
+      end
     end
-  
   end
 
   describe "GET #edit" do
-    before { get :edit, id: question}
+    context "when user signed in" do
+      before { sign_in user }
+      before { get :edit, id: question }
 
-    it 'assigns appropriate question to @question' do
-      expect(assigns(:question)).to eq question
+      it 'assigns appropriate question to @question' do
+        expect(assigns(:question)).to eq question
+      end
+
+      it "renders edit view" do
+        expect(response).to render_template :edit
+      end
     end
 
-    it "renders edit view" do
-      expect(response).to render_template :edit
-    end
+    context "when user not signed in" do
+      before { get :edit, id: question }
+      it "redirect to user sign in page" do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end  
   end
 
   describe "POST #create" do
-    context "with valid attriutes" do
-      it "saves new question" do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+
+    context "with signed in user" do
+      before { sign_in user }
+
+      context "with valid attriutes" do
+        it "saves new question" do
+          expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+        end
+
+        it "redirect to show view" do
+          post :create, question: attributes_for(:question)
+          expect(response).to redirect_to question_path(assigns(:question))
+        end
       end
 
-      it "redirect to show view" do
-        post :create, question: attributes_for(:question)
-        expect(response).to redirect_to question_path(assigns(:question))
+      context "with invalid attributes" do
+        it "does not save the question" do
+          expect { post :create, question: attributes_for(:invalid_question) }.to_not change(Question, :count)
+        end
+        it "re-renders new view" do
+          post :create, question: attributes_for(:invalid_question)
+          expect(response).to render_template :new
+        end
       end
     end
 
-    context "with invalid attributes" do
-      it "does not save the question" do
-        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(Question, :count)
-      end
-      it "re-renders new view" do
-        post :create, question: attributes_for(:invalid_question)
-        expect(response).to render_template :new
+    context 'user not signed in' do
+      it 'redirects to sign in path' do
+        post :create, question: attributes_for(:question)
+        expect(response).to redirect_to new_user_session_path
       end
     end
   end
 
   describe "PATCH #update" do
+
+    context "if user sign in" do
+      before { sign_in user}
+
       context "valid attributes" do
+        
         it 'assigns appropriate question to @question' do
           patch :update, id: question, question: attributes_for(:question)
           expect(assigns(:question)).to eq question
@@ -111,8 +147,20 @@ describe QuestionsController do
       end
     end
 
-    describe "DELETE #destroy" do
-      before { question }
+    context "if user not signed in" do
+      before { patch :update, id: question }
+      it 'redirects to sign in path' do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    before { question }
+
+    context "user is signed in" do
+      before { sign_in user }
+      
       it "deletes questions" do
         expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
       end
@@ -123,4 +171,11 @@ describe QuestionsController do
       end
     end
 
+    context "if user not signed in" do
+      it "redirects to sign in path" do
+        delete :destroy, id: question
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end
