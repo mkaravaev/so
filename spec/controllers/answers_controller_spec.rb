@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'capybara/rspec'
 
 describe AnswersController do
   let(:answer) { create(:answer) }
