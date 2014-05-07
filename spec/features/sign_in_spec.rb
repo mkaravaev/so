@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Signin_in', %q{
+feature 'Signin in', %q{
   In order to ask 
   question I as a 
   user want be able to sign in
@@ -22,7 +22,7 @@ feature 'Signin_in', %q{
     fill_in 'Email', with: 'test1@example.ru'
     fill_in 'Password', with: '12345678'
     click_on 'Sign in'
-
+    save_and_open_page
     expect(page).to have_content "Forgot your password?"
   end
 end

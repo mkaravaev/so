@@ -16,5 +16,8 @@ nav.top-bar data-topbar=""
     ul.left
       li.divider
       li
-        = link_to 'Sign up', new_user_registration_path
+        - if user_signed_in?
+          = link_to('Log out', destroy_user_session_path, method: :delete)
+        - else
+          = link_to 'Sign up now', new_user_registration_path
       
