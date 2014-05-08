@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
 
     if @question.save
       redirect_to @question
+      flash[:notice] = "Question created!"
     else
       render :new
     end

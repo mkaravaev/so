@@ -9,10 +9,7 @@ feature 'Signin in', %q{
     User.create!(email: "test@example.ru", password: '123456789',
       password_confirmation: '123456789', name: 'Misa')
 
-    visit new_user_session_path
-    fill_in 'Email', with: 'test@example.ru'
-    fill_in 'Password', with: '123456789'
-    click_on 'Sign in'
+    sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
   end
