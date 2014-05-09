@@ -19,7 +19,7 @@ feature 'Signin in', %q{
     fill_in 'Email', with: 'test1@example.ru'
     fill_in 'Password', with: '12345678'
     click_on 'Sign in'
-    save_and_open_page
+    
     expect(page).to have_content "Forgot your password?"
   end
 end

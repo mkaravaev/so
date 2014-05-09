@@ -1,49 +1,31 @@
 class AnswersController < ApplicationController
-  before_action :find_answer, only:[:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show]
+  # before_action :find_answer, only:[:edit, :update, :destroy]
+  before_action :authenticate_user!
 
-  def show
-  end
-
-  def new
-    if user_signed_in?
-      @answer = Answer.new
-    else
-      redirect_to new_user_session_path
-    end
-  end
-
-  def edit
-    unless user_signed_in?
-      render(text: "page not found")
-    end
-  end
+  # def edit
+    
+  # end
 
   def create
-    @answer = Answer.create(answer_params)
-    if user_signed_in? && @answer.errors.empty?
-      redirect_to @answer
-    else
-      render :new
-    end
+    @question = Question.find(params[:question_id])
+    @question.answers.create(answer_params)
+    redirect_to question_path(@question)
   end
 
-  def update
-    if @answer.update(answer_params)
-      redirect_to @answer
-    else
-      render :edit
-    end
-  end
+  # def update
+  #   @question = Question.find(params[:question_id])
+  #   @question.answers.update
+  #   redirect_to question_path(@question)
+  # end
 
-  def destroy
-    if user_signed_in?
-      @answer.destroy
-      redirect_to answers_path
-    else  
-      redirect_to new_user_session_path
-    end
-  end
+  # def destroy
+  #   if user_signed_in?
+  #     @answer.destroy
+  #     redirect_to answers_path
+  #   else  
+  #     redirect_to new_user_session_path
+  #   end
+  # end
 
   private
 

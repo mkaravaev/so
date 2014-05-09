@@ -27,7 +27,7 @@ feature 'Signing up', %q{
     fill_in "Password confirmation", with: user.password_confirmation
     click_on "Sign up"
 
-    save_and_open_page
+    
     expect(page).to have_content 'has already been taken'
   end
 end

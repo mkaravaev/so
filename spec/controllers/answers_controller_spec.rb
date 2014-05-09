@@ -2,141 +2,121 @@ require 'spec_helper'
 require 'capybara/rspec'
 
 describe AnswersController do
+
   let(:answer) { create(:answer) }
   let(:user) { create(:user) }
-  describe 'GET #show' do
+  let(:question) { create(:question) }
 
-    before { get :show, id: answer }
+  # describe "GET #edit" do
 
-    it 'puts appropriate answer to @answer' do
-      expect(assigns(:answer)).to eq answer
-    end
+  #   context 'user signed in' do
+  #     before { sign_in user }
+  #     before { get :edit, id: answer, question_id: question }
 
-    it 'renderd show view' do
-      expect(response).to render_template :show
-    end
-  end
+  #     it 'assigns appropriate answer to @answer' do 
+  #       expect(assigns(:answer)).to eq answer
+  #     end
 
-  describe 'GET #new' do
+  #     it 'renders edit view' do 
+  #       expect(response).to render_template :edit
+  #     end
+  #   end
 
-    context 'if user signed in' do
-      before  do 
-        sign_in user
-        get :new
-      end
-
-      it 'assigns new Answer to an @answer' do
-        expect(assigns(:answer)).to be_a_new(Answer)
-      end
-
-      it 'renders new answer view' do
-        expect(response).to render_template :new
-      end
-    end
-
-    context 'if user not signed in' do
-      it 'redirect to sign in page' do
-        get :new
-        expect(response).to redirect_to new_user_session_path
-      end
-    end 
-  end
-
-  describe "GET #edit" do
-
-    context 'user signed in' do
-      before { sign_in user }
-      before { get :edit, id: answer }
-
-      it 'assigns appropriate answer to @answer' do 
-        expect(assigns(:answer)).to eq answer
-      end
-
-      it 'renders edit view' do 
-        expect(response).to render_template :edit
-      end
-    end
-
-    context 'user not signed in' do
-      before { get :edit, id: answer }
-      it "redirect to sign in path" do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-  end
+  #   context 'user not signed in' do
+  #     before { get :edit, id: answer, question_id: question }
+  #     it "redirect to sign in path" do
+  #       expect(response).to redirect_to new_user_session_path
+  #     end
+  #   end
+  # end
 
   describe "POST #create" do
+
     context 'user signed in' do
       before { sign_in user }
-      it "saves new answer" do
-        expect { post :create, answer: attributes_for(:answer) }.to change(Answer, :count).by(1)
+      context "with valid attributes" do
+        it "saves new answer with valid attributes" do
+          expect { post :create, answer: attributes_for(:answer), question_id: question }.to change(question.answers, :count).by(1)
+        end
+
+        it "redirect to question show view" do
+          post :create, answer: attributes_for(:answer), question_id: question
+          expect(response).to redirect_to question_path(question)
+        end
       end
 
-      it "redirect to show view" do
-        post :create, answer: attributes_for(:answer)
-        expect(response).to redirect_to answer_path(assigns(:answer))
+      context "with invalid attributes" do
+        it "not save answer into database" do
+         expect { post :create, answer: attributes_for(:invalid_answer), question_id: question }.to_not change(Answer, :count)
+        end
+
+        it "redirect to question show view " do
+          post :create, answer: attributes_for(:invalid_answer), question_id: question
+          expect(response).to redirect_to question_path(question)
+        end
       end
     end
 
-    context 'user not signed in' do
-      before { get :create, id: answer }
+    context "user not signed in" do
+      before { get :create, id: answer, question_id: question }
       it "redirect to sign in path" do
         expect(response).to redirect_to new_user_session_path
       end
     end
   end
 
-  describe "PATCH #update" do
-    context "user signed in" do
-      before { sign_in user }
+  # describe "PATCH #update" do
 
-      it 'assigns appropriate answer to @answer' do
-        patch :update, id: answer, answer: attributes_for(:answer)
-        expect(assigns(:answer)).to eq answer
-      end
+  #   context "user signed in" do
+  #     before { sign_in user }
 
-      it "changes answer attributes" do
-        patch :update, id: answer, answer: { body: "my new body1" }
-        answer.reload
-        expect(answer.body).to eq "my new body1"
-      end
+  #     it 'assigns appropriate answer to @answer' do
+  #       patch :update, id: answer, question_id: question, answer: attributes_for(:answer)
+  #       expect(assigns(:answer)).to eq answer
+  #     end
 
-      it "redirects to updated answers" do
-        patch :update, id: answer, answer: attributes_for(:answer)
-        expect(response).to redirect_to answer
-      end
-    end
+  #     it "changes answer attributes" do
+  #       patch :update, id: answer, question_id: question, answer: { body: "my new body1" }
+  #       answer.reload
+  #       expect(answer.body).to eq "my new body1"
+  #     end
 
-    context  "user not signed in" do
-      before { patch :update, id: answer }
-      it "redirect to sign in path" do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-  end
+  #     it "redirects to updated answers" do
+  #       patch :update, id: answer, question_id: question, answer: attributes_for(:answer)
+  #       expect(response).to redirect_to question_path(question)
+  #     end
+  #   end
 
-  describe "DELETE #destroy" do
+  #   context  "user not signed in" do
+  #     before { patch :update, id: answer, question_id: question }
+  #     it "redirect to sign in path" do
+  #       expect(response).to redirect_to new_user_session_path
+  #     end
+  #   end
+  # end
 
-    context "user sign in" do
-      before { sign_in user }
-      before { answer }
+  # describe "DELETE #destroy" do
 
-      it "deletes answers" do
-        expect { delete :destroy, id: answer }.to change(Answer, :count).by(-1)
-      end
+  #   context "user sign in" do
+  #     before { sign_in user }
+  #     before { answer }
+
+  #     it "deletes answers" do
+  #       expect { delete :destroy, id: answer, question_id: question }.to change(Answer, :count).by(-1)
+  #     end
     
-      it "redirect to index page" do
-        delete :destroy, id: answer
-        expect(response).to redirect_to answers_path
-      end
-    end
+  #     it "redirect to index page" do
+  #       delete :destroy, id: answer, question_id: question
+  #       expect(response).to redirect_to question_path(question)
+  #     end
+  #   end
 
-    context  "user not signed in" do
-      before { patch :update, id: answer }
-      it "redirect to sign in path" do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-  end
+  #   context  "user not signed in" do
+  #     before { patch :update, id: answer, question_id: question }
+  #     it "redirect to sign in path" do
+  #       expect(response).to redirect_to new_user_session_path
+  #     end
+  #   end
+  # end
 
 end

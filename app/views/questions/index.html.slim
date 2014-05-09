@@ -10,4 +10,4 @@
           .small p asked #{question.created_at}
         / .user-info
         /   p= link_to question.user.name, user_path(question.user_id)
-  .button= link_to 'Ask question', new_question_path
+  = button_to 'Ask question', new_question_path
