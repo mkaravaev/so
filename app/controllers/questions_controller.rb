@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @questions = Question.order('created_at DESC')
+    @questions = Question.all
   end
 
   def show

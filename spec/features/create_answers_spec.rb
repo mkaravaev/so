@@ -12,8 +12,7 @@ feature "User answer", %q{
     sign_in(user)
     visit question_path(question)
     fill_in "Your answer", with: 'Some answer'
-    save_and_open_page
-    click_on "Put answser"
+    click_on "Put answer"
 
     expect(current_path).to eq question_path(question)
     within '.answers' do

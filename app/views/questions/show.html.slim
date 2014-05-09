@@ -1,6 +1,9 @@
 h1= @question.title
 p=  @question.body
+.answers
+  - @question.answers.each do |answer|
+    p= answer.body
 
 = simple_form_for [@question, @answer] do |f|
-  = f.input :body, "Your answer"
+  = f.input :body, label: 'Your answer'
   = f.button :submit, "Put answer"
