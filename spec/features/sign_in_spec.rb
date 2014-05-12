@@ -5,10 +5,11 @@ feature 'Signin in', %q{
   question I as a 
   user want be able to sign in
 } do
+  
+  given(:user){ create(:user) }
+  
   scenario "Existing user try to sign in" do
-    user = User.create!(email: "test@example.ru", password: '123456789',
-      password_confirmation: '123456789', name: 'Misa')
-
+  
     sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
