@@ -40,10 +40,9 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'faker'
-
 end

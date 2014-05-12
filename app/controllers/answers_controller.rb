@@ -3,13 +3,16 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
 
   # def edit
-    
+
   # end
 
   def create
     @question = Question.find(params[:question_id])
     @question.answers.create(answer_params)
-    redirect_to question_path(@question)
+    respond_to do |format|
+      format.html { redirect_to question_path(@question) }
+      format.js
+    end
   end
 
   # def update

@@ -16,3 +16,18 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+// jQuery(function($) {
+//   $("#new_answer").submit(function(event){
+//     event.preventDefault();
+//     $.ajax({
+//       type: 'POST',
+//       url: $(this).attr('action'),
+//       data: $(this).serialize(),
+//       dataType: 'json',
+//       success: function(result) {
+//        $('.answers').html('<%= render "questions/answers" %>');
+//       }
+//     });
+//   });
+// });
