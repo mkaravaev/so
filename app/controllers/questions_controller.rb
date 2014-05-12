@@ -22,8 +22,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.create(question_params)
-
+    @question = current_user.questions.new(question_params)
+    
     if @question.save
       redirect_to @question
       flash[:notice] = "Question created!"

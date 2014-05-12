@@ -84,7 +84,7 @@ describe QuestionsController do
 
       context "with valid attriutes" do
         it "saves new question" do
-          expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+          expect { post :create, question: attributes_for(:question) }.to change(user.questions, :count).by(1)
         end
 
         it "redirect to show view" do
