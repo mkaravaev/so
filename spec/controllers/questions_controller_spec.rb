@@ -6,7 +6,7 @@ describe QuestionsController do
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
-    before {get :index}
+    before { get :index }
 
     it 'makes array with all questions' do
       expect(assigns(:questions)).to match_array(questions)

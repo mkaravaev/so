@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative "feature_helper"
 
 feature 'Signin in', %q{
   In order to ask 

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative "feature_helper"
 
 feature 'Signing up', %q{
   In order to ask questions and give answers to others

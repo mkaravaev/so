@@ -1,4 +1,5 @@
-require 'spec_helper'
+require_relative "feature_helper"
+
 
 feature 'Questions on root page', %q{
   In order to know what this site is about

@@ -10,9 +10,10 @@ html lang="en"
   body
     topbar= render 'layouts/topbar'
     header= render 'layouts/header'
-    p.notice= notice
-    p.alert= alert
+      
     .row
-      .large-8.columns= yield
-      .large-4.columns
+      p.notice= notice
+      p.alert= alert
+      .large-9.columns= yield
+      .large-3.columns
     footer= render 'layouts/footer'

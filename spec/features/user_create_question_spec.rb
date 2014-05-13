@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative "feature_helper"
 require 'rspec/expectations'
 
 feature "User can create question" do
