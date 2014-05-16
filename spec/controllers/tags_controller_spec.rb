@@ -31,7 +31,7 @@ describe TagsController do
       context "alredy existing tag" do
         it "not saves tag in database" do
           tag1 = Tag.create(name: "ubyR")
-          expect { post :create, tag: { rname: "ubyR" } }.to_not change(Tag, :count)
+          expect { post :create, tag: { name: "ubyR" } }.to_not change(Tag, :count)
         end
       end
     end

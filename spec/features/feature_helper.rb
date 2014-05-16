@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-Rspec.configure do |config|
+RSpec.configure do |config|
+
   Capybara.javascript_driver = :webkit
   config.include AcceptanceMacros, type: :feature
 

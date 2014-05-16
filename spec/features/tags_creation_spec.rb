@@ -31,7 +31,7 @@ feature 'Creating tags', %q{
     fill_in "Name", with: tag.name
     click_on "Create Tag"
     
-    expect(page).to have_content "Tag already exist!"
+    expect(page).to have_content "Tag '#{tag.name}' has already been taken"
   end
 
 end

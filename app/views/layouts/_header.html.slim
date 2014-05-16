@@ -1,8 +1,10 @@
 .row
   .large-12.columns
     .inline-list
-      hr
-      li= link_to "Questions", questions_path
-      li= link_to "Tags", tags_path
-      li= link_to "Users", "#"
-      hr
+      li= link_to "Questions", questions_path, class: "button small"
+      li= link_to "Tags", tags_path, class: "button small"
+      li= link_to "Users", "#", class: "button small"
+      li= link_to "Badges", "#", class: "button small"
+      li= link_to "Unanswered", "#", class: "button small"
+      ul.right
+        = link_to 'Ask question', new_question_path, class: "button"

@@ -1,5 +1,7 @@
+
 .question-container
   - @questions.each do |question|
+    hr
     .question-title 
       h3= link_to question.title, question_path(question)
     .question-body 
@@ -9,5 +11,6 @@
         .user-action-time
           .small p asked #{question.created_at}
         .user-info
-          / p= link_to question.user.name, user_path(question.user_id)
-  .button= link_to 'Ask question', new_question_path
+hr        
+
+  

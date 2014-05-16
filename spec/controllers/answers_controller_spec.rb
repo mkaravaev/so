@@ -5,7 +5,7 @@ describe AnswersController do
 
   let(:answer) { create(:answer) }
   let(:user) { create(:user) }
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
 
   # describe "GET #edit" do
 
@@ -65,35 +65,40 @@ describe AnswersController do
     end
   end
 
-  # describe "PATCH #update" do
+  describe "PATCH #update" do
+    let(:answer) { create(:answer, question: question) }
+    context "user signed in" do
+      before { sign_in user }
 
-  #   context "user signed in" do
-  #     before { sign_in user }
+      it "assigns appropriate answer to @answer" do
+        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(assigns(:answer)).to eq answer
+      end
 
-  #     it 'assigns appropriate answer to @answer' do
-  #       patch :update, id: answer, question_id: question, answer: attributes_for(:answer)
-  #       expect(assigns(:answer)).to eq answer
-  #     end
+      it "changes answer attributes" do
+        patch :update, id: answer, question_id: question, answer: { body: "new body11" }, format: :js
+        answer.reload
+        expect(answer.body).to eq "new body11"
+      end
 
-  #     it "changes answer attributes" do
-  #       patch :update, id: answer, question_id: question, answer: { body: "my new body1" }
-  #       answer.reload
-  #       expect(answer.body).to eq "my new body1"
-  #     end
+      it "assigns question variable" do
+        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(assigns(:question )).to eq question
+      end
 
-  #     it "redirects to updated answers" do
-  #       patch :update, id: answer, question_id: question, answer: attributes_for(:answer)
-  #       expect(response).to redirect_to question_path(question)
-  #     end
-  #   end
+      it "renders update template" do
+        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(response).to render_template :update
+      end
+    end
 
-  #   context  "user not signed in" do
-  #     before { patch :update, id: answer, question_id: question }
-  #     it "redirect to sign in path" do
-  #       expect(response).to redirect_to new_user_session_path
-  #     end
-  #   end
-  # end
+    context "user not signed in" do
+      before { patch :update, id: answer, question_id: question }
+      it "redirect to sign in path" do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 
   # describe "DELETE #destroy" do
 

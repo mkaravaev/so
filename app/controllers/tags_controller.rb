@@ -7,11 +7,9 @@ class TagsController < ApplicationController
  end
 
  def create
-  @tag = Tag.create(tag_params)
-    if @tag.errors.messages.empty?
-      @tag.save
-    else
-      flash[:alert] = @tag.errors.messages[:name].to_s.gsub(/[^\w,\s,(!,?,.)]/, '')
+  @tag = Tag.new(tag_params)
+    unless @tag.save
+      flash[:alert] = "Tag '#{@tag.name}' " + @tag.errors.messages[:name].to_s.gsub(/[^\w,\s,(!,?,.)]/, '')
     end
   redirect_to tags_path
  end

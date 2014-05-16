@@ -13,9 +13,11 @@ feature 'Signing up', %q{
     fill_in "Password", with: "123456789", match: :first
     fill_in "Password confirmation", with: "123456789"
     fill_in "Name", with: "user"
-    click_on "Sign up"
     
-    
+    within "#new_user" do
+      click_on "Sign up"
+    end
+
     expect(page).to have_content 'Welcome! You have signed up successfully.'
   end
 
@@ -25,8 +27,10 @@ feature 'Signing up', %q{
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password, match: :first
     fill_in "Password confirmation", with: user.password_confirmation
-    click_on "Sign up"
 
+    within "#new_user" do
+      click_on "Sign up"
+    end
     
     expect(page).to have_content 'has already been taken'
   end

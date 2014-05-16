@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
   
-  before_action :find_question, only:[:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_question, only: [:show, :edit, :update, :destroy]
+  
 
   def index
     @questions = Question.all
@@ -9,14 +10,11 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.build
+    @user = current_user
   end
 
   def new
-    if user_signed_in?
-      @question = Question.new
-    else
-      redirect_to new_user_session_path
-    end
+    @question = Question.new
   end
 
   def edit   
@@ -24,7 +22,6 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.new(question_params)
-    
     if @question.save
       redirect_to @question
       flash[:notice] = "Question created!"

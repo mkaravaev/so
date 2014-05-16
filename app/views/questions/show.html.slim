@@ -1,7 +1,16 @@
 h1= @question.title
 p=  @question.body
+.question_asker_info
+  small  
+    | Asked by 
+    = link_to "#{@question.user.name}"
+    br
+    = @question.created_at
+    hr
 .answers
- = render "answers"
+  = render "answers"
+
 = simple_form_for [@question, @answer], remote: true do |f|
+  .answer-errors
   = f.input :body, label: 'Your answer'
   = f.button :submit, "Put answer"

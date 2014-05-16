@@ -1,2 +1,10 @@
 - @question.answers.each do |answer|
-  p= answer.body
+  - if answer.persisted?
+    hr
+    p= answer.body
+    - if user_signed_in? && current_user.id == answer.user_id
+      = link_to 'Edit', '', class: "edit-answer-link", data: { answer_id: answer.id }
+      p
+        = simple_form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+          = f.input :body, label: "Answer"
+          = f.button :submit, "Save"

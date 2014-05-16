@@ -1,23 +1,24 @@
-nav.top-bar data-topbar="" 
-  ul.title-area
-    li.name
-      h1
-        =link_to 'SO clone by Misa', questions_path  
-  section.top-bar-section
-    /! Right Nav Section
-    ul.right
-      li.has-form
-        .row.collapse
-          .large-8.small-9.columns
-            input placeholder="find question" type="text"
-          .large-4.small-3.columns
-            a.alert.button.expand href="#" search      
-    /! Left Nav Section
-    ul.left
-      li.divider
-      li
-        - if user_signed_in?
-          = link_to 'Log out', destroy_user_session_path, method: :delete
-        - else
-          = link_to 'Sign up now', new_user_registration_path
+.contain-to-grid
+  nav.top-bar data-topbar=""
+    ul.title-area
+      li.name
+        h1
+          =link_to 'SO clone by Misa', questions_path  
+    section.top-bar-section
+      /! Right Nav Section
+      ul.right
+        li.has-form
+          .row.collapse
+            .large-8.small-9.columns
+              input placeholder="find question" type="text"
+            .large-4.small-3.columns
+              a.alert.button.expand href="#" search      
+      /! Left Nav Section
+      ul.left
+        li.divider
+        li
+          - if user_signed_in?
+            = link_to 'Log out', destroy_user_session_path, method: :delete
+          - else
+            = link_to 'Sign up', new_user_registration_path
       
