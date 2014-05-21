@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   # resources :users
   resources :questions do
-    resources :answers
+    resources :answers, only: [:create, :update, :destroy]
   end
   resources :tags, only: [:index, :create]
   # The priority is based upon order of creation: first created -> highest priority.

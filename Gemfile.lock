@@ -40,6 +40,11 @@ GEM
     capybara-webkit (1.1.0)
       capybara (~> 2.0, >= 2.0.2)
       json
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -85,6 +90,7 @@ GEM
     mini_portile (0.5.3)
     minitest (5.3.3)
     multi_json (1.9.2)
+    nested_form (0.3.2)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -111,6 +117,7 @@ GEM
     rake (10.3.1)
     rdoc (4.1.1)
       json (~> 1.4)
+    remotipart (1.2.1)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -182,6 +189,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   capybara-webkit
+  carrierwave
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
@@ -190,8 +198,10 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  nested_form
   pg
   rails (= 4.1.0)
+  remotipart
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

@@ -5,7 +5,7 @@ html lang="en"
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
     title= content_for?(:title) ? yield(:title) : "SO clone by misa"
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application", "vendor/modernizr"
+    = javascript_include_tag "application", "vendor/modernizr", "nested_form"
     = csrf_meta_tags
   body
     topbar= render 'layouts/topbar'

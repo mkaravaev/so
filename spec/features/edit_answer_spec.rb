@@ -30,7 +30,7 @@ feature "Answer editing", %q{
       click_on "Edit"
       within ".edit_answer" do
         fill_in "Answer", with: 'edited answer'
-        click_on "Save"
+        click_on "Create"
       end
       within '.answers' do
         expect(page).to_not have_content answer.body

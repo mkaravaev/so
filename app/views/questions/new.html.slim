@@ -1,4 +1,10 @@
-= simple_form_for @question do |q|
-  = q.input :title, require: true
-  = q.input :body, as: :text, require: true
-  = q.button :submit, "Ask"
+= simple_nested_form_for @question do |f|
+  p
+    = f.input :title, require: true
+    = f.input :body, as: :text, require: true
+  p Attachments:
+  p
+    = f.simple_fields_for :attachments do |a|
+      = a.input :file, as: :file
+    = f.link_to_add "+ add more", :attachments
+  p= f.button :submit, "Ask"

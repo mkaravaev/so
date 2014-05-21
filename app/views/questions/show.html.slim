@@ -1,5 +1,11 @@
 h1= @question.title
 p=  @question.body
+/ to do  add if question belongs to current user add link to delete question
+p Attachments :
+ul
+  - @question.attachments.each do |a|
+    li= link_to a.file.identifier, a.file.url
+
 .question_asker_info
   small  
     | Asked by 
@@ -13,4 +19,7 @@ p=  @question.body
 = simple_form_for [@question, @answer], remote: true do |f|
   .answer-errors
   = f.input :body, label: 'Your answer'
-  = f.button :submit, "Put answer"
+  p
+    = f.simple_fields_for :attachments do |a|
+      = a.input :file, as: :file
+  p= f.button :submit, "Put answer"
