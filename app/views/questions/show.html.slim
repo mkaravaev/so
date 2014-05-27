@@ -16,10 +16,12 @@ ul
 .answers
   = render "answers"
 
-= simple_form_for [@question, @answer], remote: true do |f|
-  .answer-errors
+= simple_form_for [@question, @answer], remote: true, data: { type: :json } do |f|
+
   = f.input :body, label: 'Your answer'
+  .answer-errors
   p
     = f.simple_fields_for :attachments do |a|
       = a.input :file, as: :file
+    / = f.link_to_add "+ add files", :attachments
   p= f.button :submit, "Put answer"

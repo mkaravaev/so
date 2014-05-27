@@ -4,7 +4,14 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.create(answer_params.merge({user_id: current_user.id}))
+    @answer = @question.answers.build(answer_params.merge({user_id: current_user.id}))
+    respond_to do |format|
+      if @answer.save
+        format.json
+      else
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
