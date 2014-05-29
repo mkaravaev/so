@@ -11,27 +11,12 @@ feature 'Creating tags', %q{
 
   scenario "Existing signed in user creating new tag" do
     sign_in(user)
-    visit tags_path
-    fill_in "Name", with: "Ruby on Rails"
-    click_on "Create Tag"
+    visit new_question_path
+    fill_in "Title", with: "example title"
+    fill_in "Body", with: "example body"    
+    fill_in "Tags", with: "Ruby on Rails"
+    click_on "Ask"
     
     expect(page).to have_content "Ruby on Rails"
   end
-
-  scenario "Non signed in user trying to creat tag" do
-    visit tags_path
-    expect(page).to_not have_content "Create Tag"
-  end
-
-  given!(:tag) { create(:tag) }
-
-  scenario "Signed in user trying to create existing tag" do
-    sign_in(user)
-    visit tags_path
-    fill_in "Name", with: tag.name
-    click_on "Create Tag"
-    
-    expect(page).to have_content "Tag '#{tag.name}' has already been taken"
-  end
-
 end

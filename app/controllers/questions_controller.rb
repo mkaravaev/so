@@ -9,6 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @question.tags.build
     @answer = @question.answers.build
     @answer.attachments.build
     @user = current_user
@@ -17,9 +18,11 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question.attachments.build
+    @question.tags.build
   end
 
-  def edit   
+  def edit
+
   end
 
   def create
@@ -48,10 +51,10 @@ class QuestionsController < ApplicationController
   private
 
   def find_question
-    @question = Question.find(params[:id])
+    @question = Question.includes(:tags, :answers).find(params[:id])
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, attachments_attributes: [:file])
+    params.require(:question).permit(:title, :tag_names, :body, :user_id, attachments_attributes: [:file], tags_attributes: [:name])
   end
 end

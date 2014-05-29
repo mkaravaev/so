@@ -2,5 +2,3 @@ h1 Tags
 hr
 - @tags.each do |tag|
   span= link_to "#{ tag.name }, ", '#'
-- if current_user
-  = render 'form'

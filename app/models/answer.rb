@@ -6,4 +6,5 @@ class Answer < ActiveRecord::Base
   has_many :attachments, as: :attachmentable, dependent: :destroy
 
   accepts_nested_attributes_for :attachments
+  default_scope { order('created_at') }
 end

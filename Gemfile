@@ -13,7 +13,7 @@ gem 'devise'
 gem 'simple_form'
 gem 'remotipart'
 gem 'nested_form'
-
+gem 'select2-rails'
 gem 'foundation-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

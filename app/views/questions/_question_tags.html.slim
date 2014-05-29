@@ -1,0 +1,5 @@
+.question_tags
+  p
+   | tags: 
+   = @question.tag_names.map { |t| link_to t, "#" }
+      / = link_to t.name, t.

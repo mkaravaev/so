@@ -12,10 +12,9 @@ html lang="en"
     header= render 'layouts/header'
       
     .row
-      p.notice= notice
-      p.alert= alert
+      = render 'layouts/flash'
       .large-10.columns= yield
       .large-2.columns
-        =render 'layouts/sidebar'
+        = render 'layouts/sidebar'
 
     footer= render 'layouts/footer'

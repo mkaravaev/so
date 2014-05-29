@@ -13,12 +13,21 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require select2
 //= require jquery_nested_form
 //= require foundation
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
 
+jQuery(function($) {
+  $("#question_tag_names").select2({
+    tags:[],
+    tokenSeparators: [",", " "],
+    maximumSelectionSize: 5,
+    width: '400'
+  });
+});
 // jQuery(function($) {
 //   $("#new_answer").submit(function(event){
 //     event.preventDefault();
