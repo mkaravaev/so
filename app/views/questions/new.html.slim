@@ -1,14 +1,1 @@
-= simple_nested_form_for @question do |f|
-  p
-    = f.input :title, require: true
-    = f.input :body, as: :text, require: true
-  p Attachments:
-  p
-    = f.simple_fields_for :attachments do |a|
-      = a.input :file, as: :file
-    = f.link_to_add "+ add more", :attachments
-  p
-    = f.input :tag_names, label: 'Tags',
-                          html_input: { class: "select2-container-multi" }
-
-  p= f.button :submit, "Ask"
+= render "form"

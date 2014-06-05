@@ -22,7 +22,7 @@ $(function(){ $(document).foundation(); });
 
 jQuery(function($) {
   $("#question_tag_names").select2({
-    tags:[],
+    tags: [],
     tokenSeparators: [",", " "],
     maximumSelectionSize: 5,
     width: '400'

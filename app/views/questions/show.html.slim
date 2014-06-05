@@ -1,25 +1,16 @@
-h1= @question.title
-p=  @question.body
-/ to do  add if question belongs to current user add link to delete question
-= render "question_attachments"
-= render "question_tags"
-.question_asker_info
-  small  
-    | Asked by 
-    = link_to "#{@question.user.name}"
-    br
-    = @question.created_at
-
-p
+.container 
+  .question
+    = render "question"
+    .question_form    
+      = render "form"    
+    p
   .answers
     = render "answers"
-
   = simple_form_for [@question, @answer], remote: true, data: { type: :json } do |f|
-
     = f.input :body, label: 'Your answer'
     .answer-errors
     p
-      = f.simple_fields_for :attachments do |a|
-        = a.input :file, as: :file
+    = f.simple_fields_for :attachments do |a|
+      = a.input :file, as: :file
 
     p= f.button :submit, "Put answer"

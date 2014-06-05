@@ -36,10 +36,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question
-    else
-      render :edit
+    attachments
+    respond_to do |format| 
+      if @question.update(question_params) 
+        format.js
+      else
+        format.js
+      end
     end
   end
 
@@ -52,6 +55,10 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.includes(:tags, :answers).find(params[:id])
+  end
+
+  def attachments
+    @attachment = Attachment.assign_attachments(params[:attachment_ids], @question)
   end
 
   def question_params

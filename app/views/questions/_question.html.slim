@@ -1,0 +1,19 @@
+h1= @question.title
+p=  @question.body
+
+= render "question_attachments"
+= render "question_tags"
+
+.question_links
+  - if @question.user_id == current_user.id
+    small
+      = link_to 'Edit', '', class: "edit-question-link", remote: true
+      br
+      = link_to 'Delete', question_path(@question), method: :delete, data: { confirm: "Delete your question?" }
+
+.question_asker_info.right
+  small  
+    | Asked by 
+    = link_to "#{@question.user.name}"
+    br
+    = @question.created_at
