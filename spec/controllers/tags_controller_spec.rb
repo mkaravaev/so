@@ -18,20 +18,13 @@ describe TagsController do
     end
   end
 
-  describe "POST #create" do
+  describe "POST#create" do
     context "user signed in" do
       before { sign_in user }
 
       context "unexisting tag" do
         it "saves new tag to database" do
           expect { post :create, tag: attributes_for(:tag) }.to change(Tag, :count).by(1)
-        end
-      end
-
-      context "alredy existing tag" do
-        it "not saves tag in database" do
-          tag1 = Tag.create(name: "ubyR")
-          expect { post :create, tag: { name: "ubyR" } }.to_not change(Tag, :count)
         end
       end
     end

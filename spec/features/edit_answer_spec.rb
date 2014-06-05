@@ -28,14 +28,14 @@ feature "Answer editing", %q{
 
     scenario 'try to edit his answer', js: true do
       click_on "Edit"
-      within ".edit_answer" do
+      within ".simple_form.edit_answer" do
         fill_in "Answer", with: 'edited answer'
-        click_on "Create"
+        click_on "Save"
       end
+
       within '.answers' do
         expect(page).to_not have_content answer.body
         expect(page).to have_content "edited answer"
-        expect(page).to_not have_selector "textarea"
       end
     end
 
@@ -44,7 +44,6 @@ feature "Answer editing", %q{
     scenario 'User sees edit link only if he is answer owner' do
       click_on "Log out"
       sign_in user2
-
       visit question_path(question)
 
       expect(page).to_not have_link "Edit"

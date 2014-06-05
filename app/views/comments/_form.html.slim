@@ -1,0 +1,6 @@
+/ - @comment.errors.full_messages.each do |msg| 
+/   div.errors
+/     = msg 
+= simple_form_for [parent, parent.comments.build], remote: true, html: {id: "comment-form"} do |f|
+  = f.input :body
+  = f.button :submit, class: "button tiny"

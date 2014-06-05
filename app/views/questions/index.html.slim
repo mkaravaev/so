@@ -1,5 +1,5 @@
 .question-container
-  - @questions.each do |question|
+  - collection.each do |question|
     hr
     .question-title 
       h3= link_to question.title, question_path(question)

@@ -1,36 +1,25 @@
-class AnswersController < ApplicationController
+class AnswersController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :find_answer, only: [:update, :destroy]
+  actions :create, :update, :destroy
+  respond_to :json, :js
 
+  belongs_to :question
+  
   def create
-    @question = Question.find(params[:question_id])
-    @answer = @question.answers.build(answer_params.merge({user_id: current_user.id}))
-    respond_to do |format|
-      if @answer.save
-        format.json
-      else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-      end
+    create! do |success, failure|
+      success.json
+      failure.json { render json: resource.errors.full_messages, status: :unprocessable_entity }
     end
   end
 
-  def update
-    @answer.update(answer_params)
-    @question = @answer.question
-  end
+  protected
 
-  def destroy
-    @answer.destroy
-    redirect_to question_path(@answer.question)
+  def create_resource(object)
+    object.user = current_user
+    super
   end
-
-  private
 
   def answer_params
-    params.require(:answer).permit(:body, :question_id, :user_id, attachments_attributes: [:file])
-  end
-
-  def find_answer
-    @answer = Answer.find(params[:id])
+    params.require(:answer).permit(:body, :question_id, :user_id, attachments_attributes: [:file, :id])
   end
 end

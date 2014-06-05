@@ -1,16 +1,19 @@
-.container 
+.question_container 
   .question
     = render "question"
     .question_form    
-      = render "form"    
+      = render "form"
+    br
+    .comments
+      = render "comments/comments_list", parent: resource
     p
   .answers
-    = render "answers"
-  = simple_form_for [@question, @answer], remote: true, data: { type: :json } do |f|
+    = render "answers", question: resource
+  = simple_nested_form_for [resource, resource.answers.build], remote: true, data: { type: :json } do |f|
     = f.input :body, label: 'Your answer'
     .answer-errors
-    p
     = f.simple_fields_for :attachments do |a|
       = a.input :file, as: :file
+      = f.link_to_add "+ add more", :attachments
 
     p= f.button :submit, "Put answer"

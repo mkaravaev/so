@@ -1,67 +1,35 @@
-class QuestionsController < ApplicationController
+class QuestionsController < InheritedResources::Base
   
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_question, only: [:show, :edit, :update, :destroy]
-  
+  before_action :build_attachment, only: :new
+  before_action :build_tag, only: :new
+  respond_to :js, only: :update
 
-  def index
-    @questions = Question.all
+  # def create
+  #   if @question.save
+  #     redirect_to @question
+  #     flash[:notice] = "Question created!"
+  #   else
+  #     render :new
+  #   end
+  # end
+
+  protected
+
+  def create_resource(object)
+    object.user = current_user
+    super
   end
 
-  def show
-    @question.tags.build
-    @answer = @question.answers.build
-    @answer.attachments.build
-    @user = current_user
+  def build_attachment
+    build_resource.attachments.build
   end
 
-  def new
-    @question = Question.new
-    @question.attachments.build
-    @question.tags.build
-  end
-
-  def edit
-
-  end
-
-  def create
-    @question = current_user.questions.new(question_params)
-    if @question.save
-      redirect_to @question
-      flash[:notice] = "Question created!"
-    else
-      render :new
-    end
-  end
-
-  def update
-    attachments
-    respond_to do |format| 
-      if @question.update(question_params) 
-        format.js
-      else
-        format.js
-      end
-    end
-  end
-
-  def destroy
-    @question.destroy
-    redirect_to questions_path
-  end
-
-  private
-
-  def find_question
-    @question = Question.includes(:tags, :answers).find(params[:id])
-  end
-
-  def attachments
-    @attachment = Attachment.assign_attachments(params[:attachment_ids], @question)
+  def build_tag
+    build_resource.tags.build
   end
 
   def question_params
-    params.require(:question).permit(:title, :tag_names, :body, :user_id, attachments_attributes: [:file], tags_attributes: [:name])
+    params.require(:question).permit(:title, :tag_names, :body, :user_id, attachments_attributes: [:file, :id])
   end
 end

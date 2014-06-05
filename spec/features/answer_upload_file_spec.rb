@@ -12,7 +12,7 @@ feature 'Add files to answer', %q{
     sign_in(user)
     visit question_path(question)
     fill_in 'Your answer', with: 'My answer123'
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    attach_file 'file', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Put answer'
     
     within '.answers' do

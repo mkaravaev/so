@@ -14,10 +14,11 @@ feature "User wants to delete his question" do
     expect(page).to have_content "Delete"
   end
 
-  scenario "authenticated user wants to delete his question" do
+  scenario "authenticated user wants to delete his question", js: true do
     click_on "Delete"
-    page.driver.browser.accept_js_confirms
-    expect(Question.all).to_not have(id: question.id)
+    page.driver.accept_js_confirms!
+    expect(page).to have_content "Question was successfully destroyed"
+    expect(page).to_not have_content question.title
   end
 
 end

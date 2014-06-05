@@ -7,10 +7,11 @@ class Question < ActiveRecord::Base
   has_many :tags_questions
   has_many :tags, through: :tags_questions
   has_many :answers, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
   belongs_to :user
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :tags
 
 

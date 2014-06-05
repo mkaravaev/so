@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require tinymce
 //= require jquery.remotipart
 //= require select2
 //= require jquery_nested_form
@@ -22,12 +23,21 @@ $(function(){ $(document).foundation(); });
 
 jQuery(function($) {
   $("#question_tag_names").select2({
-    tags: [],
-    tokenSeparators: [",", " "],
+    tags: [ ],
+    tokenSeparators: [","],
     maximumSelectionSize: 5,
     width: '400'
   });
 });
+
+$(document).ready(function() {
+  $('#comment-form').hide(); 
+  //Initially form wil be hidden.
+  // $('#add-comment-link').click(function() {
+  //   $('#comment-form').toggle();//Form toggles on button click
+  // });
+});
+
 // jQuery(function($) {
 //   $("#new_answer").submit(function(event){
 //     event.preventDefault();

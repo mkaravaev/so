@@ -1,19 +1,22 @@
-h1= @question.title
-p=  @question.body
-
-= render "question_attachments"
+h1= resource.title
+hr
+p=  resource.body
+.question-errors
 = render "question_tags"
+= render "question_attachments"
 
-.question_links
-  - if @question.user_id == current_user.id
-    small
-      = link_to 'Edit', '', class: "edit-question-link", remote: true
-      br
-      = link_to 'Delete', question_path(@question), method: :delete, data: { confirm: "Delete your question?" }
-
-.question_asker_info.right
-  small  
-    | Asked by 
-    = link_to "#{@question.user.name}"
+table.info_table
+  - if resource.user == current_user
+    td
+      .links
+        = link_to 'Edit', edit_question_path(resource), class: "edit-question-link"
+        span  | 
+        = link_to 'Delete', question_path(resource), method: :delete, data: { confirm: "Delete your question?" }
+  td.user_info
+    | asked 
+    = resource.created_at.strftime("%b %d %Y at %H:%M")
     br
-    = @question.created_at
+    | by 
+    = link_to resource.user.name, "#"
+
+          

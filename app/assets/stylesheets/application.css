@@ -12,8 +12,17 @@
  *
  *= require_tree .
  *= require select2
+ *= require 'foundicons'
  *= require_self
  *= require foundation_and_overrides
  */
- 
+
+ /*tag*/
+.button.tiny.radius.tag { margin-right: 10px; }
+
+/*user info table*/
+.info_table { border: 0;
+                  width: 800px; }
+.user_info { background-color: #e0eaf1;
+                        width: 200px; }
  

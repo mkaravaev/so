@@ -1,8 +1,9 @@
-<% if @question.errors.present? %>
-  <% @question.errors.full_messages.each do |message| %>
+<% if resource.errors.present? %>
+  <% resource.errors.full_messages.each do |message| %>
     $('.question-errors').html('<%= j message %>');
   <% end %>
 <% else %>
   $('.question').html('<%= j render 'questions/question' %>');
-  $('.answers').append('<%= j render 'questions/answers' %>');
+  $('.comments').append('<%= j render 'comments/comments_list', parent: resource %>');
+  // $('.answers').append('<%= j render 'questions/answers', question: resource %>');
 <% end %>

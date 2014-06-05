@@ -4,7 +4,10 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
   has_many :attachments, as: :attachmentable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   accepts_nested_attributes_for :attachments
+  # accepts_nested_attributes_for :comments, allow_destroy: true
+  
   default_scope { order('created_at') }
 end

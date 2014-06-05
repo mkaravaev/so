@@ -1,5 +1,5 @@
 .question_tags
   p
-    - @question.tag_names.each do |t| 
-      = link_to t + " ", " " 
+    - resource.tag_names.each do |t| 
+      = link_to t + " ", " ", class: "button tiny radius tag"
       / = link_to t.name, t.

@@ -1,0 +1,15 @@
+- parent.comments.each do |comment|
+  p
+    = comment.body
+    |  – 
+    = link_to comment.user.name, " "
+    span &nbsp;
+    = comment.created_at.strftime("%b %d %Y at %H:%M")
+  hr
+p
+  = link_to 'add comment', '', class: "add_comment", data: { id: resource.id }
+/ = simple_form_for [parent, parent.comments.build], remote: true, html: {id: "comment-form"} do |f|
+/   = f.input :body
+/   = f.button :submit, class: "button tiny"
+p
+  = render 'comments/form', parent: parent

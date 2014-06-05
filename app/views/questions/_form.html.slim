@@ -1,7 +1,8 @@
-= simple_nested_form_for @question, remote: true do |f|
+= simple_nested_form_for resource do |f|
   p
     = f.input :title, require: true
-    = f.input :body, as: :text, require: true
+    = f.text_area :body, class: "tinymce", rows: 15, cols: 92
+  = tinymce
   p Attachments:
   p
     = f.simple_fields_for :attachments do |a|
@@ -11,4 +12,4 @@
     = f.input :tag_names, label: 'Tags',
                           html_input: { class: "select2-container-multi" }
 
-  p= f.button :submit, "Ask"
+  p= f.button :submit, resource.new_record? ? "Ask" : "Save"

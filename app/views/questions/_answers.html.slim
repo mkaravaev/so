@@ -1,21 +1,36 @@
-- @question.answers.each do |answer|
+.answer_header
+  h3
+    = pluralize(question.answers.count, 'Answer')
+
+- question.answers.each do |answer|
   - if answer.persisted?
     hr
-    p= answer.body
+    .answer id="answer-#{answer.id}"
+      p= answer.body
 
-    - if answer.attachments
-      - answer.attachments.each do |a|
-        p
-          small
-            | Attachments: 
-            = link_to a.file.identifier, a.file.url
+      - if answer.attachments
+        - answer.attachments.each do |a|
+          p
+            small
+              | Attachments: 
+              = link_to a.file.identifier, a.file.url
 
-    - if user_signed_in? && (current_user.id == answer.user_id)
-      small
-        = link_to 'Edit', '', class: "edit-answer-link", data: { answer_id: answer.id }
-        br
-        = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: "Delete your answer?" }
-        
-      p  = simple_form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
-          = f.input :body, label: "Answer"   
-          = f.button :submit, "Create"
+      table.info_table
+        - if answer.user == current_user
+          td.links
+            = link_to 'Edit', '', class: "edit-answer-link", data: { answer_id: answer.id }
+            span  | 
+            = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: "Delete your answer?" }
+        td.user_info
+          | asked 
+          = resource.created_at.strftime("%b %d %Y at %H:%M")
+          br
+          | by 
+          = link_to resource.user.name, "#"
+      p  
+        = simple_form_for [question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+          = f.input :body, label: "Answer" 
+          = f.button :submit, "Save"
+          
+      .answer-comments    
+        p= render 'comments/comments_list', parent: answer    

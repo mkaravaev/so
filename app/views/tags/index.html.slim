@@ -1,4 +1,4 @@
 h1 Tags
 hr
-- @tags.each do |tag|
-  span= link_to "#{ tag.name }, ", '#'
+- collection.each do |tag|
+  span= link_to "#{ tag.name }", '#', class: "button tiny radius tag"

@@ -128,12 +128,12 @@ describe QuestionsController do
       context "valid attributes" do
         
         it 'assigns appropriate question to @question' do
-          patch :update, id: question, question: attributes_for(:question)
+          patch :update, id: question, question: attributes_for(:question), format: :js
           expect(assigns(:question)).to eq question
         end
 
         it "changes question attributes" do
-          patch :update, id: question, question: { title: "my_new_title1", body: "my new body1" }
+          patch :update, id: question, question: { title: "my_new_title1", body: "my new body1" }, format: :js
           question.reload
           expect(question.title).to eq "my_new_title1"
           expect(question.body).to eq "my new body1"
