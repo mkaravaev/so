@@ -1,9 +1,9 @@
 class QuestionsController < InheritedResources::Base
-  
   before_action :authenticate_user!, except: [:index, :show]
   before_action :build_attachment, only: :new
   before_action :build_tag, only: :new
   respond_to :js, only: :update
+
 
   # def create
   #   if @question.save

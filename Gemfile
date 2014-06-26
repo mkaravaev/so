@@ -17,6 +17,8 @@ gem 'select2-rails'
 gem 'foundation-rails'
 gem 'foundicons-rails'
 gem 'tinymce-rails'
+gem 'cancan'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
