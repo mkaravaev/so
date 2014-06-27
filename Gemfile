@@ -19,6 +19,7 @@ gem 'foundicons-rails'
 gem 'tinymce-rails'
 gem 'cancan'
 
+gem 'doorkeeper'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'

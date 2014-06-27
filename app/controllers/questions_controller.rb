@@ -2,6 +2,7 @@ class QuestionsController < InheritedResources::Base
   before_action :authenticate_user!, except: [:index, :show]
   before_action :build_attachment, only: :new
   before_action :build_tag, only: :new
+  before_action :build_answer, only: :show
   respond_to :js, only: :update
 
 
@@ -21,6 +22,11 @@ class QuestionsController < InheritedResources::Base
     super
   end
 
+  def build_answer
+    @answer = build_resource.answers.build
+    @answer.attachments.build
+  end
+
   def build_attachment
     build_resource.attachments.build
   end
@@ -32,4 +38,5 @@ class QuestionsController < InheritedResources::Base
   def question_params
     params.require(:question).permit(:title, :tag_names, :body, :user_id, attachments_attributes: [:file, :id])
   end
+
 end

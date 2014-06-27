@@ -9,7 +9,7 @@
     p
   .answers
     = render "answers", question: resource
-  = simple_nested_form_for [resource, resource.answers.build], remote: true, data: { type: :json } do |f|
+  = simple_nested_form_for [resource, @answer], remote: true, data: { type: :json } do |f|
     = f.input :body, label: 'Your answer'
     .answer-errors
     = f.simple_fields_for :attachments do |a|
