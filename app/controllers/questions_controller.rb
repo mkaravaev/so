@@ -1,5 +1,6 @@
 class QuestionsController < InheritedResources::Base
   before_action :authenticate_user!, except: [:index, :show]
+  load_and_authorize_resource
   before_action :build_attachment, only: :new
   before_action :build_tag, only: :new
   before_action :build_answer, only: :show

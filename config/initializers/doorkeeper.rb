@@ -5,10 +5,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
-    # Put your resource owner authentication logic here.
-    # Example implementation:
-    #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_url)
+    current_user || warden.authenticate!(scope: :user)
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
@@ -19,11 +16,11 @@ Doorkeeper.configure do
   # end
 
   # Authorization Code expiration time (default 10 minutes).
-  # authorization_code_expires_in 10.minutes
+  authorization_code_expires_in 10.hours
 
   # Access token expiration time (default 2 hours).
   # If you want to disable expiration, set this to nil.
-  # access_token_expires_in 2.hours
+  access_token_expires_in 48.hours
 
   # Reuse access token for the same resource owner within an application (disabled by default)
   # Rationale: https://github.com/doorkeeper-gem/doorkeeper/issues/383
