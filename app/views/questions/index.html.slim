@@ -4,7 +4,7 @@
     .question-title 
       h3= link_to question.title, question_path(question)
     .question-body 
-      p #{question.body}
+      p #{question.body.html_safe}
     .question-stats
       .user-info
         .user-action-time

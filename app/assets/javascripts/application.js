@@ -30,13 +30,13 @@ jQuery(function($) {
   });
 });
 
-$(document).ready(function() {
-  $('#comment-form').hide(); 
-  //Initially form wil be hidden.
-  // $('#add-comment-link').click(function() {
-  //   $('#comment-form').toggle();//Form toggles on button click
-  // });
-});
+// $(document).ready(function() {
+//   $('#comment-form').hide(); 
+//   $('#add-comment').click(function() {
+//     $(this).preventDefault();
+//     $('#comment-form').show();//Form toggles on button click
+//   });
+// });
 
 // jQuery(function($) {
 //   $("#new_answer").submit(function(event){

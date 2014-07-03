@@ -6,15 +6,13 @@ feature "User want to add comment to question", %q{
 } do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given!(:question) { create(:question) }
 
   scenario "authenticated user add comment to question" do
     sign_in user
     visit question_path(question)
-    click_on "Add comment"
     fill_in "Your comment", with: 'This is comment'
-    click_on "Make comment"
-
+    click_on "Create Comment"
     within ".comments" do
       expect(page).to have_content("This is comment")
     end

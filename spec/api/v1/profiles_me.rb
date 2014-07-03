@@ -23,27 +23,21 @@ describe 'Profiles API' do
       end
 
       it 'returns 200 status code' do
-        expect(response).to eq 200
-        expect(response.body).to eq 0
+        expect(response.status).to eq 200
       end
 
       %w(id email).each do |attr|
-
-      it 'returns user id' do
-        expect(response.body).to be_json_eql(me.id.to_json).at_path('id')
+        it "returns #{attr} id" do
+          expect(response.body).to be_json_eql(me.send(attr.to_sym).to_json).at_path(attr)
+        end
       end
 
-      it 'returns user email' do
-        expect(response.body).to be_json_eql(me.email.to_json).at_path('email')
+      %w(password encrypted_password).each do |attr|
+        it "does not contains #{attr} id" do
+          expect(response.body).to_not have_json_path(attr)
+        end
       end
 
-      it 'does not contains password' do
-        expect(response.body).to_not json_path('password')
-      end
-
-      it 'does not contains password' do
-        expect(response.body).to_not json_path('encrypted_password')
-      end
     end
   end
 end

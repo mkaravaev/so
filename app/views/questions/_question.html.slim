@@ -1,6 +1,6 @@
 h1= resource.title
 hr
-p=  resource.body
+p= resource.body.html_safe
 .question-errors
 = render "question_tags"
 = render "question_attachments"

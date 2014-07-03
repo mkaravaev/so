@@ -18,6 +18,7 @@ gem 'foundation-rails'
 gem 'foundicons-rails'
 gem 'tinymce-rails'
 gem 'cancan'
+gem 'rails-observers'
 
 gem 'doorkeeper'
 gem 'omniauth'
@@ -50,6 +51,7 @@ gem 'bullet',               group: :development
 gem 'rails_best_practices', group: :development
 
 group :test, :development do
+  gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'

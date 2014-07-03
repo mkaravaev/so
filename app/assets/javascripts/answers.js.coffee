@@ -16,7 +16,7 @@ $ ->
       $('.answers').append('<small> Attachment: ' + '<a href="' + attachment.url + '">' + attachment.name + '</a></small>')
     $('.answers').append('<small><a class="edit-answer-link" data-answer-id="' + answer.id + '" href="">Edit</a></small>')  
     $('.answers').append('<br>')
-    $('.answers').append('<small><a data-confirm="Delete your answer?" data-method="delete" href="/questions/' + answer.question_id + '/answers/' + answer.id + '" rel="nofollow">Delete</a></small>')  
+    $('.answers').append('<small><a data-confirm="Delete your answer?" data-method="delete" href="/questions/' + answer.question + '/answers/' + answer.id + '" rel="nofollow">Delete</a></small>')  
     $('#answer_body').val('')  
 
   .bind 'ajax:error', (e, xhr, status, error) ->

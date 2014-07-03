@@ -2,5 +2,5 @@
 /   div.errors
 /     = msg 
 = simple_form_for [parent, parent.comments.build], remote: true, html: {id: "comment-form"} do |f|
-  = f.input :body
+  = f.input :body, label: "Your comment", placeholder: "put your comment"
   = f.button :submit, class: "button tiny"

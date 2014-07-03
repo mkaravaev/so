@@ -8,7 +8,10 @@ feature "User can create question" do
     visit "/questions"
     click_on "Ask question"
     fill_in "Title", with: "this is title"
-    fill_in "Body", with: "Who creates Ruby?"
+    page.execute_script('$("#foo_description_raw").tinymce().setContent("Pants are pretty sweet.")')
+    within ".tinymce" do
+      fill_in "Body", with: "Who creates Ruby?"
+    end
     click_on "Ask"
 
     expect(page).to have_content "Question created!"

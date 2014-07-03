@@ -18,10 +18,11 @@ Rails.application.routes.draw do
 
   # API
   
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :profiles do
         get :me, on: :collection
+        get :all, on: :collection
       end
     end
   end
