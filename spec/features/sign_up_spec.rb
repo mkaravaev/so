@@ -5,7 +5,7 @@ feature 'Signing up', %q{
   I as a visitor want be able to create new user account
 } do
 
-  let(:user){user = create(:user)}
+  let(:user) { create(:user) }
 
   scenario "Visitor of a site try to sign up" do
     visit new_user_registration_path

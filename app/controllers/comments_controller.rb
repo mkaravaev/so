@@ -15,8 +15,5 @@ class CommentsController < InheritedResources::Base
     object.user = current_user
     super
   end
-    # def set_commentable
-  #   parent ||= %w{answer question}.find { |p| params.has_key?("#{p}_id")}
-  #   @commentable ||= parent.classify.constantize.find(params["#{parent}_id"])
-  # end
+
 end

@@ -4,16 +4,25 @@
     .question_form    
       = render "form"
     br
+    hr
+    a.show-comments 
+      | 
+      =pluralize(resource.comments.count, 'Comment')
     .comments
       = render "comments/comments_list", parent: resource
     p
   .answers
     = render "answers", question: resource
-  = simple_nested_form_for [resource, @answer], remote: true, data: { type: :json } do |f|
-    = f.input :body, label: 'Your answer'
-    .answer-errors
-    = f.simple_fields_for :attachments do |a|
-      = a.input :file, as: :file
-      = f.link_to_add "+ add more", :attachments
-
-    p= f.button :submit, "Put answer"
+  - if current_user
+    = simple_nested_form_for [resource, @answer], remote: true, data: { type: :json } do |f|
+      = f.input :body, label: 'Your answer'
+      .answer-errors
+      = f.simple_fields_for :attachments do |a|
+        = a.input :file, as: :file
+        = f.link_to_add "+ add more", :attachments
+      p= f.button :submit, "Put answer"
+  - else
+    p 
+      | Please 
+      = link_to "log in", new_user_session_path
+      |  to answer for question 

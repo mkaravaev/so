@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :comment do
     body 'awsome comment body'
-    commentable_id '2'
-    commentable_type 'Question'
+    user_id '1'
   end
 end

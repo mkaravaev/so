@@ -5,8 +5,8 @@ class Api::V1::ProfilesController < Api::V1::BaseController
     respond_with current_resource_owner
   end
 
-  def all
-    respond_with User.all
+  def index
+    respond_with collection
   end
 
 end
