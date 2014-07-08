@@ -6,7 +6,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   def index
-    respond_with collection
+    respond_with User.all.to_json
   end
 
 end

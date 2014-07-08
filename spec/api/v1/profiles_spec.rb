@@ -37,16 +37,16 @@ describe 'Profiles API' do
           expect(response.body).to_not have_json_path(attr)
         end
       end
-      
+
       context 'GET#all' do
         let!(:users) { create_list(:user, 2) }
 
         before do
-          get '/api/v1/profiles/all', format: :json, access_token: access_token.token
+          get '/api/v1/profiles', format: :json, access_token: access_token.token
         end
 
         it 'returns all users' do
-          expect(response.body).to have_json_size(2).at_path('questions')
+          expect(response.body).to have_json_size(3)
         end
       end
     end
