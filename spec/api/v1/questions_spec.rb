@@ -41,7 +41,6 @@ describe 'Question API' do
       end
 
       context 'answers' do
-
         it 'included in question object' do
           expect(response.body).to have_json_size(1).at_path("questions/0/answers")
         end
@@ -55,36 +54,35 @@ describe 'Question API' do
     end
 
     context 'api/v1/questions/question_id' do
-      let(:question) { create(:question) }
+      let!(:question) { create(:question) }
+      let!(:comment) { create(:comment, commentable_id: question.id) }
       let(:access_token) { create(:access_token) }
-      let!(:comment) { create(:comment, commentable_id: question, commentable_type: question) }
       
       before do
-        get 'api/v1/questions/' + "#{question.id}", format: :json, access_token: access_token.token
+        get "api/v1/questions/#{question.id}", format: :json, access_token: access_token.token
       end
 
-      it 'should return propriate question' do
-        expect(response.body).to be_json_eql(question)
+      it 'returns 200 status code' do
+        expect(response.status).to eq 200
       end
 
       %w(id title body created_at updated_at).each do |attr|
         it 'question object contains #{attr}' do
-          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("questions/#{question.id}/#{attr}")
+          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("question/#{attr}")
         end
       end
 
       context 'question comments' do
         it 'include comments to question' do
-          expect(response.body).to have_json_size(1).at_path("questions/0/comments")
+          expect(response.body).to have_json_size(1).at_path("question/comments") 
         end
 
         %w(id body created_at updated_at).each do |attr|
           it 'question object contains #{attr}' do
-            expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("questions/0/comments/0/#{attr}")
+            expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("question/comments/0/#{attr}")
           end
         end
-
-      end
+      end 
     end
   end
 end
