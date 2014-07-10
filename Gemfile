@@ -17,6 +17,7 @@ gem 'select2-rails'
 gem 'foundation-rails'
 gem 'foundicons-rails'
 gem 'tinymce-rails'
+# gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'cancan'
 gem 'rails-observers'
 

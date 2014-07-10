@@ -11,7 +11,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     object.user = current_user
     super
   end
-  
+
    def question_params
     params.require(:question).permit(:title, :tag_names, :body, :user_id, attachments_attributes: [:file, :id])
   end

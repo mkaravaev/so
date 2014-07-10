@@ -1,3 +1,7 @@
 toolbar:
-  - styleselect | bold italic | link image | undo redo
+  - styleselect | bold italic | link | undo redo
+  - table
+plugins:
+  - table
+
 
