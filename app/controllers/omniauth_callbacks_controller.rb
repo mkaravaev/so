@@ -7,7 +7,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def twitter
-    
+
   end
 
   private
@@ -16,7 +16,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_oauth(request.env['omniauth.auth'])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
-      set_flash_message :notice, :success, kind: "#{provider}" if is_navigational_format?
+      set_flash_message :notice, :success, kind: "twitter" if is_navigational_format?
+      # TODO kind provider from twitter to common
     # else
     #   session["devise." + provider + "_data"] = request.env["omniauth.auth"]
     #   redirect_to new_user_registration_url

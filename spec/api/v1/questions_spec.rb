@@ -2,18 +2,7 @@ require 'spec_helper'
 
 describe 'Question API' do
   describe 'GET Index' do
-    context 'unauthorized' do
-      it 'returns 401 status if no access_token' do
-        get 'api/v1/questions', format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status code if access_token invalid' do
-        get 'api/v1/questions', format: :json
-        expect(response.status).to eq 401
-      end
-    end
-
+    it_behaves_like "API Authenticable"
     context 'authorized' do
 
       let!(:questions) { create_list(:question, 2) }
@@ -82,7 +71,31 @@ describe 'Question API' do
             expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("question/comments/0/#{attr}")
           end
         end
-      end 
+      end
+    end 
+
+    context 'user create question api/v1/questions' do
+      let(:user) { create(:user) }
+      let(:question) { create(:question, user_id: user) }
+      let(:access_token) { create(:access_token) }
+
+      before do 
+        post 'api/v1/questions', question: { title: question.title, body: question.body }, access_token: access_token.token, format: :json
+      end
+
+      it 'create question' do
+        expect(response.status).to eq 201
+      end
+
+      %w(title body).each do |attr|
+        it "created question contains #{attr}" do
+          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("question/#{attr}")
+        end
+      end
+    end
+
+    def do_request(options={})
+      get 'api/v1/questions', { format: :json }.merge(options)
     end
   end
 end

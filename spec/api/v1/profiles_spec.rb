@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe 'Profiles API' do
   describe 'Resource owner user' do
+    let(:do_request) { get 'api/v1/profiles', format: :json }
+    it_behaves_like "API Authenticable"
+
     context 'Anuthorized' do
       it 'returns 401 status code if there is not access token' do
         get '/api/v1/profiles/me', format: :json
@@ -51,5 +54,9 @@ describe 'Profiles API' do
         end
       end
     end
-  end
+
+    def do_request(options={})
+      get 'api/v1/profiles/me', { format: :json }.merge(options)
+    end
+  end 
 end
