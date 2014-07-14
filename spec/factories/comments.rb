@@ -8,6 +8,8 @@ FactoryGirl.define do
   end
 
   factory :answer_comment, class: Comment do
+    body 'awsome comment body'
+    user_id '1'
     commentable_type 'Answer'
   end
 end
