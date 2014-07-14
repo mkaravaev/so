@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'Question API' do
-  describe 'GET Index' do
+
+  describe 'GET#index' do
     it_behaves_like "API Authenticable"
     context 'authorized' do
 
@@ -42,9 +43,11 @@ describe 'Question API' do
       end
     end
 
+  describe 'GET#show' do
+
     context 'api/v1/questions/question_id' do
       let!(:question) { create(:question) }
-      let!(:comment) { create(:comment, commentable_id: question.id) }
+      let!(:comment) { create(:question_comment, commentable_id: question.id) }
       let(:access_token) { create(:access_token) }
       
       before do
@@ -61,7 +64,7 @@ describe 'Question API' do
         end
       end
 
-      context 'question comments' do
+      context 'question contains comments' do
         it 'include comments to question' do
           expect(response.body).to have_json_size(1).at_path("question/comments") 
         end
@@ -72,9 +75,13 @@ describe 'Question API' do
           end
         end
       end
-    end 
+    end
+  end 
+
+  describe "POST#create" do
 
     context 'user create question api/v1/questions' do
+
       let(:user) { create(:user) }
       let(:question) { create(:question, user_id: user) }
       let(:access_token) { create(:access_token) }
@@ -87,12 +94,17 @@ describe 'Question API' do
         expect(response.status).to eq 201
       end
 
+      it 'expect response to have question' do
+        expect(response.body).to have_json_size(1)
+      end
+
       %w(title body).each do |attr|
         it "created question contains #{attr}" do
           expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("question/#{attr}")
         end
       end
     end
+  end
 
     def do_request(options={})
       get 'api/v1/questions', { format: :json }.merge(options)
