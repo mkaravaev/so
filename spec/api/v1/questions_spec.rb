@@ -4,8 +4,8 @@ describe 'Question API' do
 
   describe 'GET#index' do
     it_behaves_like "API Authenticable"
+    
     context 'authorized' do
-
       let!(:questions) { create_list(:question, 2) }
       let(:question) { questions.first }
       let(:access_token) { create(:access_token) }
@@ -43,43 +43,29 @@ describe 'Question API' do
       end
     end
 
+    def do_request(options={})
+      get 'api/v1/questions', { format: :json }.merge(options)
+    end
+  end
+
   describe 'GET#show' do
-
     context 'api/v1/questions/question_id' do
-      let!(:question) { create(:question) }
-      let!(:comment) { create(:question_comment, commentable_id: question.id) }
-      let(:access_token) { create(:access_token) }
+
       
-      before do
-        get "api/v1/questions/#{question.id}", format: :json, access_token: access_token.token
-      end
+      # let(:access_token) { create(:access_token) }
 
-      it 'returns 200 status code' do
-        expect(response.status).to eq 200
+      it_behaves_like "API GET#show" do
+        let!(:object) { create(:question) }
+        let!(:comment) { create(:question_comment, commentable_id: object.id) }
       end
+    end
 
-      %w(id title body created_at updated_at).each do |attr|
-        it 'question object contains #{attr}' do
-          expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("question/#{attr}")
-        end
-      end
-
-      context 'question contains comments' do
-        it 'include comments to question' do
-          expect(response.body).to have_json_size(1).at_path("question/comments") 
-        end
-
-        %w(id body created_at updated_at).each do |attr|
-          it 'question object contains #{attr}' do
-            expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("question/comments/0/#{attr}")
-          end
-        end
-      end
+    def do_request(options={})
+      get "api/v1/questions/#{object.id}", { format: :json }.merge(options)
     end
   end 
 
   describe "POST#create" do
-
     context 'user create question api/v1/questions' do
 
       let(:user) { create(:user) }
@@ -103,11 +89,6 @@ describe 'Question API' do
           expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("question/#{attr}")
         end
       end
-    end
-  end
-
-    def do_request(options={})
-      get 'api/v1/questions', { format: :json }.merge(options)
     end
   end
 end
