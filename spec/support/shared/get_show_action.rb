@@ -1,12 +1,7 @@
 shared_examples_for "API GET#show" do
   context "GET#show" do
 
-    # let!(:question) { create(:question) }
     let(:access_token) { create(:access_token) }
-
-    # before do
-    #   get "api/v1/questions/#{question.id}/answers/#{answer.id}", format: :json, access_token: access_token.token
-    # end
 
     before do
       do_request(access_token: access_token.token)
