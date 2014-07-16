@@ -4,6 +4,8 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 7..180 }
   validates :body,  length: { in: 10..2048 }
 
+  after_create :calculate_reputation
+
   has_many :tags_questions
   has_many :tags, through: :tags_questions
   has_many :answers, dependent: :destroy
@@ -21,5 +23,12 @@ class Question < ActiveRecord::Base
 
   def tag_names=(names)
     self.tags = names.split(",").map { |name| Tag.where(name: name).first_or_create! }
+  end
+
+  private
+
+  def calculate_reputation
+    reputation = Reputation.calculate(self)
+    self.user.update(reputation: reputation)
   end
 end
