@@ -46,6 +46,11 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'redis-throttle', git: 'git://github.com/andreareginato/redis-throttle.git'
+
+gem 'sidekiq'
+gem 'sidetiq'
+gem 'sinatra', '>= 1.3', require: nil
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 

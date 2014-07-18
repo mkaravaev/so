@@ -1,5 +1,11 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   
@@ -17,7 +23,6 @@ Rails.application.routes.draw do
   
 
   # API
-  
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :profiles, only: [:index] do

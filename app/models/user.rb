@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     return authorization.user if authorization
     
     auth.info[:email] ? email = auth.info[:email] : email = "#{SecureRandom.urlsafe_base64(10)}" + "@soclon.com"
+    # TODO add user name to if user from twitter
     user = User.where(email: email).first
 
     if user
@@ -27,4 +28,9 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.delay.digest(user)
+    end
+  end
 end

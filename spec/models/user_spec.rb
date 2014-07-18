@@ -82,4 +82,13 @@ describe User do
     end
 
   end
+
+  describe '.send_daily_digest' do
+    let(:users) { create_list(:user, 3) }
+    
+    it 'should send daily email to all users' do
+      users.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original }
+      User.send_daily_digest
+    end
+  end
 end
