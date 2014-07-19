@@ -47,6 +47,12 @@ describe Answer do
       expect(AnswerMailer).to receive(:new_answer).with(answer)
       answer.save
     end
+
+    it 'should not send new_answer notification to mailer' do
+      answer.save
+      expect(AnswerMailer).to_not receive(:new_answer).with(answer)
+      answer.update_attributes(body: 'this is new body for the answer')
+    end
   end
 
 end
