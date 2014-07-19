@@ -16,6 +16,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :tags
 
+  scope :for_day, -> { where (["created_at >= ?", Time.now - 24.hours]) }
 
   def tag_names
     tags.pluck(:name)

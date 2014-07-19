@@ -5,11 +5,10 @@ class DailyMailer < ActionMailer::Base
   # with the following lookup:
   #
   #   en.daily_mailer.digest.subject
-  #
+  
   def digest(user)
-    @greeting = "Hi"
-    @questions = Question.where(["created_at >= ?", Time.now - 24.hours])
-    # add to scope
+    @greeting = "Hi #{user.name}"
+    @questions = Question.for_day
     mail to: user.email
   end
 end
