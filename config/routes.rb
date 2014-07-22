@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :answers, only: [:create, :update, :destroy]
   end
 
+  resources :subscription, only: [:create, :destroy]
+    
+
   resources :answers, only: [], concerns: :commentable
 
   resources :tags, only: [:index, :create]
