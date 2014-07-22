@@ -12,6 +12,8 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
   belongs_to :user
+  has_many :subscriptions, foreign_key: "resource_id", dependent: :destroy
+  has_many :subscribers, through: :subscriptions
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :tags
