@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
   has_many :authorizations
-  has_many :subscriptions, foreign_key: "resorce_id", dependent: :destroy
+  has_many :subscriptions, foreign_key: "subscriber_id", dependent: :destroy
   has_many :followed_resources, through: :subscriptions, source: :resource
 
   validate :name, presence: :true, uniqueness: true, length: { in: 3..30 } 

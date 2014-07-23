@@ -6,7 +6,4 @@ class Subscription < ActiveRecord::Base
   validates :subscriber_id, presence: true
   validates :resource_id, presence: true
 
-  def add_subscription()
-    self.create()
-  end
 end

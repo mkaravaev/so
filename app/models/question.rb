@@ -12,6 +12,7 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
   belongs_to :user
+
   has_many :subscriptions, foreign_key: "resource_id", dependent: :destroy
   has_many :subscribers, through: :subscriptions
 
@@ -26,6 +27,12 @@ class Question < ActiveRecord::Base
 
   def tag_names=(names)
     self.tags = names.split(",").map { |name| Tag.where(name: name).first_or_create! }
+  end
+
+  def subscribe(user)
+    subscription = Subscription.new(subscriber_id: user.id, resource_id: self.id)
+    subscription.save!
+    subscription
   end
 
   private

@@ -1,5 +1,10 @@
 h1= resource.title
-hr
+p
+  - unless current_user.subscriptions.where("resource_id = '#{resource.id}'")
+    = link_to "subscribe", subscribe_question_path(resource)
+  - else
+    = link_to "unsubscribe", '#'
+
 p= resource.body.html_safe
 .question-errors
 = render "question_tags"

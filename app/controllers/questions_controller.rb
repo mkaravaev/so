@@ -4,10 +4,13 @@ class QuestionsController < InheritedResources::Base
   before_action :build_attachment, only: :new
   before_action :build_tag, only: :new
   before_action :build_answer, only: :show
-  before_action :build_subscription, only: :show
-
+  
   respond_to :js, only: :update
 
+  def subscribe
+    resource.subscribe(current_user)
+    redirect_to resource
+  end
 
   # def create
   #   if @question.save
@@ -36,10 +39,6 @@ class QuestionsController < InheritedResources::Base
 
   def build_tag
     build_resource.tags.build
-  end
-
-  def build_subscription
-    build_resource.subscription.build
   end
 
   def question_params

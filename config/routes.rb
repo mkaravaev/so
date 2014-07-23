@@ -16,9 +16,10 @@ Rails.application.routes.draw do
   resources :questions, concerns: :commentable do
     resources :answers, only: [:create, :update, :destroy]
   end
-
-  resources :subscription, only: [:create, :destroy]
-    
+  
+  resources :questions, only: [] do
+    get :subscribe, on: :member
+  end
 
   resources :answers, only: [], concerns: :commentable
 
