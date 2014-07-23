@@ -15,6 +15,7 @@ class Answer < ActiveRecord::Base
 
   def send_new_answer_notification
     AnswerMailer.delay.new_answer(self)
+    AnswerMailer.delay.subscriber_new_answer(self)
   end
 
   private
