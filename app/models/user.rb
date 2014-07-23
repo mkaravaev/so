@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :authorizations
   has_many :subscriptions, foreign_key: "subscriber_id", dependent: :destroy
   has_many :followed_resources, through: :subscriptions, source: :resource
+  # has_one  :reputation
 
   validate :name, presence: :true, uniqueness: true, length: { in: 3..30 } 
   # Include default devise modules. Others available are:

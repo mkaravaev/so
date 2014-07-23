@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Answers API" do 
+  let(:question) { create(:question) }
   describe 'GET#Index' do
     
     let(:question) { create(:question) }
@@ -35,7 +36,7 @@ describe "Answers API" do
   describe "GET#show" do
     it_behaves_like "API GET#show" do
       let!(:question) { create(:question) }
-      let(:object) { create(:answer, question_id: question) }
+      let!(:object) { create(:answer, question_id: question) }
       let!(:comment) { create(:answer_comment, commentable_id: object.id )}
     end
   end

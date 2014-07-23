@@ -3,6 +3,7 @@ class AnswerMailer < ActionMailer::Base
 
   def new_answer(answer)
     @answer = answer
-    mail to: @answer.question.user.email
+    mail to: @answer.user.email
+    # TODO fix @answer.question.user.email does not init question
   end
 end

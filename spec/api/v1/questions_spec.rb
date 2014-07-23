@@ -69,7 +69,7 @@ describe 'Question API' do
     context 'user create question api/v1/questions' do
 
       let(:user) { create(:user) }
-      let(:question) { create(:question, user_id: user) }
+      let!(:question) { create(:question, user_id: user) }
       let(:access_token) { create(:access_token) }
 
       before do 

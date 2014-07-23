@@ -12,7 +12,7 @@ shared_examples_for "API GET#show" do
     end
 
     %w(id body created_at updated_at).each do |attr|
-      it "#{object.contstantize} object contains #{attr}" do
+      it "object contains #{attr}" do
         expect(response.body).to be_json_eql(object.send(attr.to_sym).to_json).at_path("#{object.class.to_s.downcase}/#{attr}")
       end
     end
@@ -22,7 +22,7 @@ shared_examples_for "API GET#show" do
     end
 
     %w(id body created_at updated_at).each do |attr|
-      it "#{object.contstantize} object contains #{attr}" do
+      it " object contains #{attr}" do
         expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("#{object.class.to_s.downcase}/comments/0/#{attr}")
       end
     end

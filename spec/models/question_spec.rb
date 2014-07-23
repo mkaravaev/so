@@ -33,4 +33,21 @@ require 'spec_helper'
       expect { subject.save! }.to change(user, :reputation).by(5)
     end
   end
+
+  describe 'subscription' do
+
+    let!(:user) { create(:user) }
+    let!(:question) { create(:question) }
+
+    it 'creates new Subscribe object' do
+      expect(question.subscribe(user)).to create(Subcription)
+    end
+
+    it 'blablabal' do
+      expect(Question).to receive(:subscribe)
+      question.subscribe(user)
+    end
+
+  end
+
 end
