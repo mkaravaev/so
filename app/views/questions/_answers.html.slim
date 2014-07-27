@@ -27,7 +27,7 @@
           = resource.created_at.strftime("%b %d %Y at %H:%M")
           br
           | by 
-          = link_to resource.user.name, "#"
+          = link_to answer.user.name, "#"
       p  
         = simple_form_for [question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
           = f.input :body, label: "Answer" 

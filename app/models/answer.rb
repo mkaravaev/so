@@ -10,12 +10,20 @@ class Answer < ActiveRecord::Base
   # accepts_nested_attributes_for :comments, allow_destroy: true
   
   default_scope { order('created_at') }
+
   after_create :send_new_answer_notification
+  after_create :send_new_answer_to_subscribers
+
   after_create :calculate_rating
 
   def send_new_answer_notification
     AnswerMailer.delay.new_answer(self)
-    AnswerMailer.delay.subscriber_new_answer(self)
+  end
+
+  def send_new_answer_to_subscribers
+    self.question.subscribers.find_each.each do |user|
+      AnswerMailer.delay.subscriber_new_answer(self, user)
+    end
   end
 
   private

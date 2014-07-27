@@ -30,9 +30,7 @@ class Question < ActiveRecord::Base
   end
 
   def subscribe(user)
-    subscription = Subscription.new(subscriber_id: user.id, resource_id: self.id)
-    subscription.save!
-    subscription
+    Subscription.create(subscriber_id: user.id, resource_id: self.id)
   end
 
   private

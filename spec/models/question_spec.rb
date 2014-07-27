@@ -34,20 +34,15 @@ require 'spec_helper'
     end
   end
 
-  describe 'subscription' do
+  describe '.subscribe' do
 
-    let!(:user) { create(:user) }
+    let!(:users) { create_list(:user, 3) }
+    let!(:user) { users.first }
     let!(:question) { create(:question) }
 
     it 'creates new Subscribe object' do
-      expect(question.subscribe(user)).to create(Subcription)
+      expect { question.subscribe(user) }.to change(question.subscribers, :count).by(1)
     end
-
-    it 'blablabal' do
-      expect(Question).to receive(:subscribe)
-      question.subscribe(user)
-    end
-
   end
 
 end

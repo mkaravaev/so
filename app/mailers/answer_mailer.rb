@@ -7,9 +7,8 @@ class AnswerMailer < ActionMailer::Base
     # TODO fix @answer.question.user.email does not init question
   end
 
-  def subscriber_new_answer(answer)
+  def subscriber_new_answer(answer, user)
     @answer = answer
-    @answer.question.subscribers.find_each do |i|
-    mail to: i.email
+    mail to: user.email
   end
 end

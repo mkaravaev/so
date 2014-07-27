@@ -5,7 +5,7 @@ describe "Answers API" do
   describe 'GET#Index' do
     
     let(:question) { create(:question) }
-    let!(:answers_list) { create_list(:answer, 2, question_id: question) }
+    let!(:answers_list) { create_list(:answer, 2, question: question) }
     let!(:answer) { answers_list.first }
 
     it_behaves_like "API Authenticable"
@@ -36,8 +36,8 @@ describe "Answers API" do
   describe "GET#show" do
     it_behaves_like "API GET#show" do
       let!(:question) { create(:question) }
-      let!(:object) { create(:answer, question_id: question) }
-      let!(:comment) { create(:answer_comment, commentable_id: object.id )}
+      let!(:object) { create(:answer, question: question) }
+      let!(:comment) { create(:answer_comment, commentable: object )}
     end
   end
 

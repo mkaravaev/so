@@ -50,10 +50,6 @@ describe 'Question API' do
 
   describe 'GET#show' do
     context 'api/v1/questions/question_id' do
-
-      
-      # let(:access_token) { create(:access_token) }
-
       it_behaves_like "API GET#show" do
         let!(:object) { create(:question) }
         let!(:comment) { create(:question_comment, commentable_id: object.id) }

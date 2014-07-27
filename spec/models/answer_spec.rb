@@ -28,7 +28,9 @@ describe Answer do
 
   #Action mailer
   describe 'send email to question owner when new answer to his questino was created' do
-    let(:user) { create(:user) }
+    let(:users) { create_list(:user, 3)}
+    let(:user) { users.first }
+    let(:user1) { users.last }
     let(:question) { create(:question, user: user) }
     let(:answer) { build(:answer, question: question) }
 
@@ -52,6 +54,19 @@ describe Answer do
       answer.save
       expect(AnswerMailer).to_not receive(:new_answer).with(answer)
       answer.update_attributes(body: 'this is new body for the answer')
+    end
+
+    context 'subscribed users should recieve notification for new answer in question' do
+
+      before do
+        subscription = Subscription.create(subscriber_id: user, resource_id: question )
+        subscription1 = Subscription.create(subscriber_id: user1, resource_id: question )
+      end
+
+      it 'should send email to every subscribed for question user' do
+        question.subscribers.each { |user| expect(AnswerMailer).to receive(:subscriber_new_answer.with(user).and_call_original)}
+        answer.save
+      end
     end
   end
 

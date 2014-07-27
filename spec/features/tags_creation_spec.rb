@@ -11,7 +11,6 @@ feature 'Creating tags', %q{
 
   scenario "Existing signed in user creating new tag" do
     sign_in(user)
-    visit new_question_path
     fill_in "Title", with: "example title"
     fill_in "Body", with: "example body"    
     fill_in "Tags", with: "Ruby on Rails"
