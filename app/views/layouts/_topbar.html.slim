@@ -9,10 +9,12 @@
       ul.right
         li.has-form
           .row.collapse
-            .large-8.small-9.columns
-              input placeholder="find question" type="text"
-            .large-4.small-3.columns
-              a.alert.button.expand href="#" search      
+            = form_tag search_path, method: :get do
+              .large-8.small-9.columns
+                = text_field_tag :search, params[:search]
+              .large-4.small-3.columns
+                = submit_tag 'search'
+              / a.alert.button.expand href="#" search
       /! Left Nav Section
       ul.left
         li.divider

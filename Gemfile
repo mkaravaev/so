@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'carrierwave'
@@ -50,6 +50,8 @@ gem 'redis-throttle', git: 'git://github.com/andreareginato/redis-throttle.git'
 gem 'sidekiq'
 gem 'sidetiq'
 gem 'sinatra', '>= 1.3', require: nil
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
@@ -61,7 +63,7 @@ gem 'bullet',               group: :development
 gem 'rails_best_practices', group: :development
 
 group :test, :development do
-  gem 'jazz_hands'
+  # gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'

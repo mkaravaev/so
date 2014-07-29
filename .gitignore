@@ -17,4 +17,7 @@
 config/database.yml
 /public/uploads
 .DS_Store
+
 dump.rdb
+config/*.shpinx.conf
+db/sphinx
