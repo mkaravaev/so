@@ -2,12 +2,13 @@ class SearchController < InheritedResources::Base
   actions :search, :show
 
   def search
-    @questions = Question.search(params[:search])
+    collection
   end
 
   protected
 
-  # def search_params
-  #   params.require(:search).permit(ser)
-  # end
+    def collection
+      @rusults = Question.search(params[:search])
+    end
+
 end

@@ -1,0 +1,13 @@
+.question-container
+  - collection.each do |question|
+    hr
+    .question-title 
+      h3= link_to question.title, question_path(question)
+    .question-body 
+      p #{question.body.html_safe}
+    .question-stats
+      .user-info
+        .user-action-time
+          .small asked #{question.created_at.strftime("%b %d %Y at %H:%M")}
+        .user-info
+hr    
