@@ -1,9 +1,11 @@
 h1= resource.title
 p
-  - unless current_user.subscriptions.where("resource_id = '#{resource.id}'")
-    = link_to "subscribe", subscribe_question_path(resource)
+  i.fi-star
+p
+  - unless current_user.subscribed?(resource).any?
+    = link_to "subscribe", subscribe_question_path(resource), method: :post
   - else
-    = link_to "unsubscribe", '#'
+    = link_to "unsubscribe", unsubscribe_question_path(resource), method: :post
 
 p= resource.body.html_safe
 .question-errors

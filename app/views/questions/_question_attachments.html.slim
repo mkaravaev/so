@@ -1,8 +1,6 @@
 .question_attachments
-  - if resource.attachments
+  - if resource.attachments.any?
     p Attachments :
     ul
       - resource.attachments.each do |a|
         li= link_to a.file.identifier, a.file.url
-
-    //attachments not show

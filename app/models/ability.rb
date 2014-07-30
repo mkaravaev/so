@@ -15,6 +15,7 @@ class Ability
     can :update, [Question, Answer, Comment], user_id: user.id
     can :destroy, [Question, Answer, Comment], user_id: user.id
     can :subscribe, Question
+    can :unsubscribe, Question
   end
 
   def quest_abilities

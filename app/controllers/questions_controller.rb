@@ -12,14 +12,10 @@ class QuestionsController < InheritedResources::Base
     redirect_to resource
   end
 
-  # def create
-  #   if @question.save
-  #     redirect_to @question
-  #     flash[:notice] = "Question created!"
-  #   else
-  #     render :new
-  #   end
-  # end
+  def unsubscribe
+    resource.unsubscribe(current_user)
+    redirect_to resource
+  end
 
   protected
 

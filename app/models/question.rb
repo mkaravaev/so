@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 7..180 }
   validates :body,  length: { in: 10..2048 }
 
-  after_create :calculate_reputation
+  # after_create :calculate_reputation
 
   has_many :tags_questions
   has_many :tags, through: :tags_questions
@@ -19,6 +19,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :tags
 
+
   scope :for_day, -> { where (["created_at >= ?", Time.now - 24.hours]) }
 
   def tag_names
@@ -30,7 +31,11 @@ class Question < ActiveRecord::Base
   end
 
   def subscribe(user)
-    Subscription.create(subscriber_id: user.id, resource_id: self.id)
+    Subscription.create!(subscriber_id: user.id, resource_id: self.id)
+  end
+
+  def unsubscribe(user)
+    Subscription.where(subscriber_id: user.id, resource_id: self.id).last.destroy!
   end
 
   private

@@ -8,7 +8,7 @@ class SearchController < InheritedResources::Base
   protected
 
     def collection
-      @rusults = Question.search(params[:search])
+      @results = Question.search(params[:search])
     end
 
 end

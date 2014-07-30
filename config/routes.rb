@@ -18,13 +18,14 @@ Rails.application.routes.draw do
   end
   
   resources :questions, only: [] do
-    get :subscribe, on: :member
+    post   :subscribe, on: :member
+    post :unsubscribe, on: :member
   end
 
   resources :answers, only: [], concerns: :commentable
 
   resources :tags, only: [:index, :create]
-  
+
   get '/search', to: 'search#search'
 
   # API
@@ -40,7 +41,5 @@ Rails.application.routes.draw do
   end
 
   root 'questions#index'
-
-  
 
 end
