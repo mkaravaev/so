@@ -9,7 +9,7 @@
       = a.input :file, as: :file
     = f.link_to_add "+ add more", :attachments
   p
-    = f.input :tag_names, label: 'Tags',
-                          html_input: { class: "select2-container-multi" }
+    = f.input :tag_names, input_html: { id: "tags" }
+                          
 
   p= f.button :submit, resource.new_record? ? "Ask" : "Save"

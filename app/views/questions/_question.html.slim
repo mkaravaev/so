@@ -4,8 +4,9 @@ p
 p
   - unless current_user.subscribed?(resource).any?
     = link_to "subscribe", subscribe_question_path(resource), method: :post
+    / make AJAX
   - else
-    = link_to "unsubscribe", unsubscribe_question_path(resource), method: :post
+    = link_to "unsubscribe", unsubscribe_question_path(resource), method: :delete
 
 p= resource.body.html_safe
 .question-errors

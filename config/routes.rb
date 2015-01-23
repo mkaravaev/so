@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   
   resources :questions, only: [] do
     post   :subscribe, on: :member
-    post :unsubscribe, on: :member
+    delete :unsubscribe, on: :member
   end
 
   resources :answers, only: [], concerns: :commentable

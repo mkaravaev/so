@@ -1,11 +1,11 @@
-require 'spec_helper'
+
 require 'capybara/rspec'
 
 describe AnswersController do
 
   let(:user) { create(:user) }
   let!(:question) { create(:question) }
-  let!(:answer) { create(:answer, question_id: question.id, user_id: user.id) }
+  let!(:answer) { create(:answer, question: question, user: user) }
 
   describe "POST #create" do
 
@@ -40,7 +40,7 @@ describe AnswersController do
 
 
   describe "PATCH #update" do
-    let(:answer) { create(:answer, question: question) }
+    let(:answer) { create(:answer, question: question, user: user) }
     context "user signed in" do
       before { sign_in user }
 
@@ -80,12 +80,12 @@ describe AnswersController do
     context "user sign in" do
       before { sign_in user }
 
-      it "deletes answers" do
-        expect { delete :destroy, id: answer, question_id: question.id }.to change(Answer, :count).by(-1)
+      it "deletes answer" do
+        expect { delete :destroy, id: answer, question_id: question }.to change(Answer, :count).by(-1)
       end
     
       it "redirect to index page" do
-        delete :destroy, id: answer, question_id: question.id
+        delete :destroy, id: answer, question_id: question
         expect(response).to redirect_to question_path(question)
       end
     end

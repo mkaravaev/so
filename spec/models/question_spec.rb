@@ -34,14 +34,21 @@ require 'spec_helper'
     end
   end
 
-  describe '.subscribe' do
+  describe 'Subscription #subscribe and #unsubscribe' do
 
-    let!(:users) { create_list(:user, 3) }
-    let!(:user) { users.first }
-    let!(:question) { create(:question) }
+    let(:user) { create(:user) }
+    let(:question) { create(:question, user: user) }
 
-    it 'creates new Subscribe object' do
-      expect { question.subscribe(user) }.to change(question.subscribers, :count).by(1)
+    context '#subscribe' do
+      it 'creates new Subscribe object' do
+        expect { question.subscribe(user) }.to change(question.subscribers, :count).by(1)
+      end
+    end
+
+    context '#unsubscribe' do
+      it 'destroy subscription to question' do
+        expect { question.unsubscribe(user) }.to change(user.subscriptions, :count).by(-1)
+      end
     end
   end
 

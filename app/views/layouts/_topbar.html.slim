@@ -13,7 +13,7 @@
               .large-8.small-9.columns
                 = text_field_tag :search, params[:search]
               .large-4.small-3.columns
-                a.alert.button.expand= submit_tag 'search'
+                = submit_tag 'search', class: "alert button expand"
               / a.alert.button.expand href="#" search
       /! Left Nav Section
       ul.left

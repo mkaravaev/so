@@ -21,20 +21,16 @@
 
 $(function(){ $(document).foundation(); });
 
-jQuery(function($) {
-  $("#question_tag_names").select2({
-    tags: [],
-    tokenSeparators: [","],
-    maximumSelectionSize: 5,
-    width: '400'
-  });
-});
+
+  
 
 $(document).ready(function(){
   $(".comments").hide();
   $(".show-comments").click(function(){
     $(".comments").toggle();
   });
+
+  // $('.tags').select2();
 });
 
 // $(document).ready(function() {
@@ -43,6 +39,15 @@ $(document).ready(function(){
 //     $(this).preventDefault();
 //     $('#comment-form').show();//Form toggles on button click
 //   });
+// });
+
+// $('.question').on('click', '.button' function(event){
+//   event.preventDefault();
+//   $.ajax({
+//     type: 'POST'
+//     url: $(this).attr()
+//   });
+//   $(this).attr
 // });
 
 // jQuery(function($) {

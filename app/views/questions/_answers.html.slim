@@ -33,5 +33,7 @@
           = f.input :body, label: "Answer" 
           = f.button :submit, "Save"
           
-      .answer-comments    
+      a.show-comments
+        | add answer comments
+      .comments    
         p= render 'comments/comments_list', parent: answer    

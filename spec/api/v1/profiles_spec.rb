@@ -18,9 +18,14 @@ describe 'Profiles API' do
     end
 
     context 'authorized' do
+      
+
       let!(:users) { create_list(:user, 3) }
       let(:me) { users.first }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+      let(:reputation) do
+        mock_model Reputation, user_id: me
+      end
 
       before do
         get '/api/v1/profiles/me', format: :json, access_token: access_token.token

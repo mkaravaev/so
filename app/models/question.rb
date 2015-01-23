@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 7..180 }
   validates :body,  length: { in: 10..2048 }
 
-  # after_create :calculate_reputation
+  after_create :calculate_reputation
 
   has_many :tags_questions
   has_many :tags, through: :tags_questions
@@ -23,7 +23,7 @@ class Question < ActiveRecord::Base
   scope :for_day, -> { where (["created_at >= ?", Time.now - 24.hours]) }
 
   def tag_names
-    tags.pluck(:name)
+    tags.pluck(:name).each { |tag| tag.gsub(/[\[\]]/) } if self.tags.exists?
   end
 
   def tag_names=(names)
@@ -31,11 +31,12 @@ class Question < ActiveRecord::Base
   end
 
   def subscribe(user)
-    Subscription.create!(subscriber_id: user.id, resource_id: self.id)
+    Subscription.create!(subscriber: user, resource: self)
   end
 
   def unsubscribe(user)
-    Subscription.where(subscriber_id: user.id, resource_id: self.id).last.destroy!
+    subscription = Subscription.where(subscriber: user, resource: self).last
+    subscription.try(:destroy)
   end
 
   private

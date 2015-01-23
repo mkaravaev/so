@@ -7,7 +7,6 @@ class Answer < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
 
   accepts_nested_attributes_for :attachments
-  # accepts_nested_attributes_for :comments, allow_destroy: true
   
   default_scope { order('created_at') }
 
@@ -16,19 +15,20 @@ class Answer < ActiveRecord::Base
 
   after_create :calculate_rating
 
+  private
+
   def send_new_answer_notification
     AnswerMailer.delay.new_answer(self)
   end
 
   def send_new_answer_to_subscribers
-    self.question.subscribers.find_each.each do |user|
+    self.question.subscribers.find_each do |user|
       AnswerMailer.delay.subscriber_new_answer(self, user)
     end
   end
 
-  private
-
   def calculate_rating
     Reputation.calculate(self)
   end
+
 end

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe QuestionsController do
-  let(:question) { create(:question) }
   let(:user) { create(:user) }
+  let!(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
     before { get :index }
 
     it 'makes array with all questions' do
-      expect(assigns(:questions)).to match_array(questions)
+      expect(assigns(:questions)).to match_array(questions << question)
     end
 
     it 'renders index page' do
@@ -42,6 +42,7 @@ describe QuestionsController do
     context "when user signed in" do
       before { sign_in user }
       before { get :new }
+
       it "assigns new Question to a @question" do
         expect(assigns(:question)).to be_a_new(Question)  
       end
@@ -65,8 +66,11 @@ describe QuestionsController do
 
   describe "GET #edit" do
     context "when user signed in" do
-      before { sign_in user }
-      before { get :edit, id: question }
+      
+      before do 
+       sign_in user
+       get :edit, id: question
+     end
 
       it 'assigns appropriate question to @question' do
         expect(assigns(:question)).to eq question
@@ -167,17 +171,17 @@ describe QuestionsController do
     end
   end
 
-  describe "DELETE #destroy" do
-    
+  describe "DELETE #destroy" do 
     context "user is signed in" do
+
       before { sign_in user }
-      
-      it "deletes questions" do
-        expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+
+      it "delete question" do
+        expect { delete :destroy, id: question }.to change(user.questions, :count).by(-1)
       end
 
-      it "redirect to index page" do
-        delete :destroy, id: question, format: :js
+      it "redirect to questions index page" do
+        delete :destroy, id: question
         expect(response).to redirect_to questions_path
       end
     end

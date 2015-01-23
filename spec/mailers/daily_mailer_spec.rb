@@ -2,11 +2,12 @@ require "spec_helper"
 
 describe DailyMailer do
   describe "digest" do
-    let(:mail) { DailyMailer.digest }
+    let(:user) { create(:user) }
+    let(:mail) { DailyMailer.digest(user) }
 
     it "renders the headers" do
       mail.subject.should eq("Digest")
-      mail.to.should eq(["to@example.org"])
+      mail.to.should eq(["#{user.email}"])
       mail.from.should eq(["from@example.com"])
     end
 

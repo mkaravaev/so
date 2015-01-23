@@ -29,7 +29,6 @@ feature "User want to delete his answer" do
     within ".answers" do
       click_on "Delete"
     end
-    save_and_open_page
     page.driver.browser.accept_js_confirms
     expect(page).to_not have_content answer.body
     

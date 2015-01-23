@@ -5,16 +5,16 @@ class QuestionsController < InheritedResources::Base
   before_action :build_tag, only: :new
   before_action :build_answer, only: :show
   
-  respond_to :js, only: :update
+  respond_to :js, only: [:update]
 
   def subscribe
     resource.subscribe(current_user)
-    redirect_to resource
+    redirect_to(resource)
   end
 
   def unsubscribe
     resource.unsubscribe(current_user)
-    redirect_to resource
+    redirect_to(resource)
   end
 
   protected
